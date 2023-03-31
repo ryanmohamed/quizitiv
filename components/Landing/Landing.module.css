@@ -1,0 +1,27 @@
+.container *:not(img) {
+    position: relative;
+}
+.container section {
+    background-color: var(--bg1);
+}
+.container h1 {
+    color: var(--txt1);
+}
+.container a {
+    transition: 200ms;
+}
+.container a:hover {
+    transform: scale(1.1);
+}
+.container img {
+    filter: drop-shadow(0 2px 30px var(--shadow-dark));
+    z-index: 10 !important;
+}
+
+@media screen and (max-width: 800px) {
+    .container section {
+        flex-direction: column;
+        height: 70vh;
+        padding: 0;
+    }
+}

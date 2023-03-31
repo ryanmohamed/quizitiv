@@ -8,25 +8,32 @@
   --font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
     'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
     'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
-}
+  --nav-height: 50px;
 
-@media (prefers-color-scheme: dark) {
-  :root {
+  --bg1: rgb(245 245 244);
+  --txt1: rgb(12 10 9);
 
-  }
+  --shadow-dark: rgba(19, 19, 19, 0.6);
+  --shadow-light: rgb(242, 242, 242, 0.2);
 }
 
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+
+  transition: color 200ms;
+  transition: background-color 200ms;
 }
 
 html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
-  color-scheme: dark;
+}
+
+body {
+  padding-top: var(--nav-height);
 }
 
 a {
@@ -34,8 +41,6 @@ a {
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+p {
+  color: var(--txt1);
 }

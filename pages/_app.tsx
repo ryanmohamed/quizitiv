@@ -1,6 +1,35 @@
 import '@/styles/globals.css'
-import type { AppProps } from 'next/app'
+import { FirebaseAppProvider } from '../context/FirebaseAppProvider'
+import { FirebaseUserProvider } from '../context/FirebaseUserProvider'
 
-export default function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+import type { ReactElement, ReactNode } from 'react'
+import type { NextPage } from 'next'
+import type { AppProps } from 'next/app'
+import { FirebaseFirestoreProvider } from '../context/FirebaseFirestoreProvider'
+import Navbar from '@/components/Navbar/Navbar'
+
+// import '@smastrom/react-rating/style.css';
+
+export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
+  getLayout?: (page: ReactElement) => ReactNode
 }
+
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout
+}
+
+const App = ({Component, pageProps}: AppPropsWithLayout) => {
+  const getLayout = Component.getLayout ?? ((page: ReactNode) => page)
+  return <>
+    <FirebaseAppProvider>
+      <FirebaseUserProvider>
+        <FirebaseFirestoreProvider>
+          <Navbar />
+        { Component.getLayout ? getLayout(<Component {...pageProps} />) : <Component {...pageProps} /> }
+        </FirebaseFirestoreProvider>
+      </FirebaseUserProvider>
+    </FirebaseAppProvider>
+  </>
+}
+
+export default App
