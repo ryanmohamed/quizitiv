@@ -24,6 +24,7 @@
 
 @media screen and (max-width: 800px) {
     .container section {
+        box-sizing: content-box;
         flex-direction: column;
         height: 70vh;
         padding: 0;
@@ -32,5 +33,11 @@
     .container div,
     .container div p {
         padding: 0;
+    }
+    .container h1 {
+        margin-bottom: 20px;
+    }
+    .container p {
+        margin-bottom: 50px;
     }
 }
