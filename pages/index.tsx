@@ -9,12 +9,11 @@ import useFirebaseUserContext from '../hooks/useFirebaseUserContext'
 import useFirebaseFirestoreContext from '../hooks/useFirebaseFirestoreContext'
 import useFirebaseFirestore from '../hooks/useFirebaseFirestore'
 
-import SignUp from '../components/SignUp/SignUp'
-import Login from '../components/Login/Login'
 import Landing from '@/components/Landing/Landing'
 import LandingWave from '@/svgs/LandingWave'
 import useThemeContext from '@/hooks/useThemeContext'
 import GetStarted from '@/components/GetStarted/GetStarted'
+import Footer from '@/components/Footer/Footer'
 
 
 
@@ -46,6 +45,8 @@ export default function Home() {
 
 
       </main>
+
+      <Footer />
     </>
   )
 }
