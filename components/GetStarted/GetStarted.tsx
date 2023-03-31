@@ -20,7 +20,7 @@ const GetStarted = () => {
                     animate={{ x: 0, rotate: -4  }}
                     whileInView={{ x: 0 }}
                     exit={{ x: -1000 }}
-                    className="p-4 rounded-xl text-5xl text-slate-900 shadow-xl shadow-slate-900 m-10 p-10 text-center italic w-fit">Thanks for visiting!</motion.div>
+                    className="p-4 rounded-xl text-3xl text-slate-900 shadow-xl shadow-slate-900 m-10 p-10 text-center italic w-fit">Thanks for visiting!</motion.div>
                 </AnimatePresence>
                 <Image src={loginImg} alt="login image" className="max-w-96 h-auto"/>
             </div>
