@@ -14,8 +14,9 @@ import Login from '../components/Login/Login'
 import Landing from '@/components/Landing/Landing'
 import LandingWave from '@/svgs/LandingWave'
 import useThemeContext from '@/hooks/useThemeContext'
+import GetStarted from '@/components/GetStarted/GetStarted'
 
-import loginImg from '../public/pngs/login.png'
+
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -24,10 +25,8 @@ export default function Home() {
   const { user } = useFirebaseUserContext()
   const { app } = useFirebaseAppContext() 
   const { db } = useFirebaseFirestoreContext()
-  const [ toggle, setToggle ] = useState<boolean>(false)
   
   const { darkMode } = useThemeContext()
-  console.log(darkMode)
   
   return (
     <>
@@ -41,16 +40,11 @@ export default function Home() {
       <main className={styles.home}>
       
         <Landing />
-        <LandingWave style={{ fill: "var(--bg1)", transition: '200ms' }} svgstyle={{ width: '100%', height: 'auto', position: 'absolute', zIndex: '10', filter: 'drop-shadow(0 10px 5px var(--shadow-dark))' }} />
-        
-        { 
-          !user && <div className={styles.login}>
-            <section className="bg-sky-600 relative pt-64 flex flex-row-reverse">
-              <div className="w-1/2 flex justify-center">{ toggle ? <SignUp toggler={()=>setToggle(false)}/> : <Login toggler={()=>setToggle(true)} /> }</div>
-              <div className="w-1/2 flex items-center"><Image src={loginImg} alt="login image" className="w-full h-auto"/></div>
-            </section>
-          </div>
-        }
+        <LandingWave style={{ fill: "var(--bg1)", transition: '200ms' }} svgstyle={{ width: '100%', height: 'auto', position: 'absolute', zIndex: '10', filter: 'drop-shadow(0 10px 5px rgba(19, 19, 19, 0.6))', transform: 'translateY(-10px)' }} />
+        { !user && <GetStarted /> }
+
+
+
       </main>
     </>
   )

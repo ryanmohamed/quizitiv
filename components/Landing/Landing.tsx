@@ -8,7 +8,7 @@ const Landing = () => {
     const { user } = useFirebaseUserContext()
     return (
         <div className={styles.container}>
-            <section className="w-full h-96 bg-purple-200 flex flex-row items-center justify-evenly pr-10">
+            <section className="w-full h-96 bg-purple-200 flex flex-row items-center justify-evenly py-10 pr-10">
             
                 <div className="flex flex-col items-center w-4/6 z-50">
                     <h1 className="text-5xl text-center z-50">Welcome to Quizitiv</h1>

@@ -1,0 +1,35 @@
+.login {
+    overflow: hidden;
+}
+.login > section {
+    background: linear-gradient(33deg, #560377, #2a46ff);
+    padding-bottom: 50px;
+}
+.login > section > div > div {
+    background: linear-gradient(33deg, #ecdd01, #fca000);
+}
+.login section img {
+    opacity: 0.6;
+}
+
+@media screen and (max-width: 800px) {
+    .login > section {
+        flex-direction: column-reverse;
+        align-items: center;
+        padding: 75px 0 0;
+    }
+    .login section > div {
+        width: 100%;
+        margin: 2em;
+    }
+    .login section > div:nth-child(2) {
+        padding: 0 4em;
+    }
+    .login section > div > div {
+        position: absolute;
+        z-index: 50;
+    }
+    .login section img {
+        z-index: 10;
+    }
+}
