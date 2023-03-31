@@ -7,6 +7,7 @@ import type { NextPage } from 'next'
 import type { AppProps } from 'next/app'
 import { FirebaseFirestoreProvider } from '../context/FirebaseFirestoreProvider'
 import Navbar from '@/components/Navbar/Navbar'
+import { ThemeProvider } from '@/context/ThemeProvider'
 
 // import '@smastrom/react-rating/style.css';
 
@@ -24,8 +25,10 @@ const App = ({Component, pageProps}: AppPropsWithLayout) => {
     <FirebaseAppProvider>
       <FirebaseUserProvider>
         <FirebaseFirestoreProvider>
-          <Navbar />
-        { Component.getLayout ? getLayout(<Component {...pageProps} />) : <Component {...pageProps} /> }
+          <ThemeProvider>
+            <Navbar />
+          { Component.getLayout ? getLayout(<Component {...pageProps} />) : <Component {...pageProps} /> }
+          </ThemeProvider>
         </FirebaseFirestoreProvider>
       </FirebaseUserProvider>
     </FirebaseAppProvider>

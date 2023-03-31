@@ -12,6 +12,7 @@ import light from '../../public/svgs/light.svg'
 import dark from '../../public/svgs/dark.svg'
 
 import { useRouter } from 'next/router'
+import useThemeContext from '@/hooks/useThemeContext'
 // import useGetLevel from '../../hooks/useGetLevel'
 
 const d = 0.25
@@ -50,9 +51,10 @@ export default function Navbar ({children} : any) {
     const { user } = useFirebaseUserContext()
     const [ photoURL, setPhotoURL ] = useState<any>(undefined)
     const [ toggle, setToggle ] = useState(false)
-    const [ darkMode, setDarkMode ] = useState<boolean>(false)
     const { SignOut } = useFirebaseAuth()
     const router = useRouter()
+
+    const { darkMode, setDarkMode } = useThemeContext()
 
     useEffect(() => {
         if ( user?.photoURL === null ) 
@@ -61,22 +63,11 @@ export default function Navbar ({children} : any) {
             setPhotoURL(user?.photoURL)
     }, [user])
 
-    useEffect(() => {
-        const root = document.documentElement
-        const bg1 =  getComputedStyle(root).getPropertyValue('--bg1')
-        const txt1 =  getComputedStyle(root).getPropertyValue('--txt1')
-        const shadowDark =  getComputedStyle(root).getPropertyValue('--shadow-dark')
-        const shadowLight =  getComputedStyle(root).getPropertyValue('--shadow-light')
-        console.log(root.style)
-        root.style.setProperty('--bg1', txt1)
-        root.style.setProperty('--txt1', bg1)
-        root.style.setProperty('--shadow-dark', shadowLight)
-        root.style.setProperty('--shadow-light', shadowDark) 
-    }, [darkMode])
+    
 
     console.log(router.pathname)
     return (
-        <nav className={styles.navbar} style={{ color: router.pathname === '/dashboard/create' ? 'black' : 'var(--main-bg2)' }}>   
+        <nav className={styles.navbar}>   
             
             <div className="flex flex-row items-center">
                 <Link href="/" className="m-2">
@@ -89,7 +80,7 @@ export default function Navbar ({children} : any) {
             </div>
         
 
-            { user && <div className={styles.user}>
+            { user && <div className={styles.user} >
 
                 <p className={styles.Name}>{ user.isAnonymous ? "Anonymous" : user.displayName == null ? user.email : user.displayName }</p>
                 <Image src={photoURL} alt={"profile image"} height={30} width={30} onClick={() => setToggle(!toggle)}/>
@@ -120,3 +111,4 @@ export default function Navbar ({children} : any) {
         </nav>
     )
 } 
+

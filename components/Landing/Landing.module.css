@@ -1,4 +1,8 @@
+.container {
+    overflow: hidden;
+}
 .container *:not(img) {
+    z-index: 50 !important;
     position: relative;
 }
 .container section {
@@ -22,6 +26,11 @@
     .container section {
         flex-direction: column;
         height: 70vh;
+        padding: 0;
+        padding-bottom: 100px;
+    }
+    .container div,
+    .container div p {
         padding: 0;
     }
 }

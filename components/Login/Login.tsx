@@ -22,7 +22,7 @@ export default function Login ({toggler}: any) : ReactElement {
             exit={{ scale: 0 }}
             className={styles.Form}
         >
-            <p>Login to start planning</p>
+            <p>Login to start your journey</p>
             <hr />
             <Formik 
                 initialValues={{ email: '', password: '', confirmPassword: '' }}
