@@ -1,6 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+
+
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300&family=Space+Grotesk:wght@300&display=swap');
 
 :root {
   --max-width: 1100px;
@@ -12,6 +12,18 @@
 
   --bg1: rgb(245 245 244);
   --txt1: rgb(23, 23, 23);
+
+  --bg2: rgb(209, 213, 219);
+  --txt2: rgb(39, 39, 42);
+
+  --bg3: #EFEFEF;
+  --txt3: #3E3E3E;
+
+  --bg4: #D9D9D9;
+  --txt4: #626262;
+
+  --bg5: #E6E6E6;
+  --txt5: #888888;
 
   --shadow-dark: rgba(19, 19, 19, 0.6);
   --shadow-light: rgb(242, 242, 242, 0.2);
@@ -50,3 +62,6 @@ h1, h2, p {
   color: var(--txt1);
 }
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

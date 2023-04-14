@@ -14,7 +14,7 @@ import LandingWave from '@/svgs/LandingWave'
 import useThemeContext from '@/hooks/useThemeContext'
 import GetStarted from '@/components/GetStarted/GetStarted'
 import Footer from '@/components/Footer/Footer'
-
+import Story from '@/components/Story/Story'
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -26,7 +26,7 @@ export default function Home() {
   const { db } = useFirebaseFirestoreContext()
   
   const { darkMode } = useThemeContext()
-  
+  console.log(user)
   return (
     <>
       <Head>
@@ -41,7 +41,7 @@ export default function Home() {
         <Landing />
         <LandingWave style={{ fill: "var(--bg1)", transition: '200ms' }} svgstyle={{ width: '100%', height: 'auto', position: 'absolute', zIndex: '10', filter: 'drop-shadow(0 10px 5px rgba(19, 19, 19, 0.6))', transform: 'translateY(-10px)' }} />
         { !user && <GetStarted /> }
-
+        <Story />
 
 
       </main>

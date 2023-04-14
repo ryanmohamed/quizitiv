@@ -94,7 +94,6 @@ export default function Navbar ({children} : any) {
                         className={styles.dropdown}
                     >
                         <Link href="dashboard"><li>Dashboard</li></Link>
-                        <Link href="create"><li>Create</li></Link>
                         <Link href="community"><li>Community</li></Link>
                         <li onClick={()=>{
                             SignOut()

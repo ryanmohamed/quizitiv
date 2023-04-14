@@ -9,7 +9,7 @@ import { FirebaseFirestoreProvider } from '../context/FirebaseFirestoreProvider'
 import Navbar from '@/components/Navbar/Navbar'
 import { ThemeProvider } from '@/context/ThemeProvider'
 
-// import '@smastrom/react-rating/style.css';
+import '@smastrom/react-rating/style.css';
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode
@@ -27,7 +27,7 @@ const App = ({Component, pageProps}: AppPropsWithLayout) => {
         <FirebaseFirestoreProvider>
           <ThemeProvider>
             <Navbar />
-          { Component.getLayout ? getLayout(<Component {...pageProps} />) : <Component {...pageProps} /> }
+            { Component.getLayout ? getLayout(<Component {...pageProps} />) : <Component {...pageProps} /> }
           </ThemeProvider>
         </FirebaseFirestoreProvider>
       </FirebaseUserProvider>
