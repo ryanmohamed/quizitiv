@@ -9,4 +9,7 @@
 .Container > div {
     width: 100%;
     min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
 }

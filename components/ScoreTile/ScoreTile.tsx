@@ -29,7 +29,7 @@ const ScoreTile = ({score, rating, id, index}: any) => {
                 <div>
                     <h1 className="md:text-4xl sm:text-2xl text-[var(--txt3)]">{quiz.title.substring(0, 10)}{(quiz.title.length > 10) ? "..." : ""}</h1>
                     <h1 className="text-lg text-[var(--txt3)]">{quiz.subject}</h1>
-                    <p className="flex justify-start items-center my-2 gap-1">{[1,2,3,4,5].map((value) => (<Star fill={ value <= 3 ? "#257BDF" : "var(--txt4)"} />))}</p>
+                    <p className="flex justify-start items-center my-2 gap-1">{[1,2,3,4,5].map((value) => (<Star fill={ value <= 3 ? "#257BDF" : "var(--txt4)"} key={value}/>))}</p>
                 </div>
                 <p className="self-end md:h-[40px] md:w-[75px] xs:h-[25px] xs:w-[55px] bg-[#E6E6E6] border-[1px] border-[var(--bg4)] rounded-md flex items-center justify-center md:text-2xl sm:text-lg text-[#64B885]">{Math.floor(score/quiz.numQuestions * 100)}% </p>
             </div>

@@ -67,7 +67,7 @@ const NewQuestion = ({question, index, arrayHelpers, ...props}: any) => {
             <motion.div key={index} style={{ filter: question.confirmed ? 'saturate(0.2)': 'none' }}>                     
                 
                 {/*  TITLE  */}
-                <div className="flex flex-col">
+                <div className="flex flex-col p-0">
                     <h1 className="self-center text-center text-2xl text-[var(--txt5)] mb-[10px]">Question {index+1}</h1>
                     <Field name={`questions.${index}.question`} type="text" placeholder={`Question ${index+1}`} disabled={question.confirmed} />
                     { props.errors.questions && <SpanError>{props.errors.questions[index]?.question}</SpanError> }

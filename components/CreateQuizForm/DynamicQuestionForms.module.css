@@ -41,6 +41,7 @@
     border: none;
     border-radius: 0.25em;
     outline: none;
+    width: 100%;
 }
 
 .Form > button {
@@ -64,7 +65,7 @@
 
 /* question container */
 .QuestionContainer {
-    background: red;
+    background: rgb(113, 232, 253);
     padding: 0;
     min-height: 300px;
     z-index: 10;

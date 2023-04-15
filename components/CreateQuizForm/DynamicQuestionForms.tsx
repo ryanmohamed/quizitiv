@@ -24,7 +24,6 @@ export default function DynamicQuestionForms({values, ...props}: any) {
             render={ arrayHelpers => (
                 <div>
 
-                
                     <motion.div className={styles.QuestionContainer} animate={{ height: height }}>
                         <Carousel arr={values.questions} arrayHelpers={arrayHelpers} {...props} length={numQuestions} myRef={ref}/>
                     </motion.div>
