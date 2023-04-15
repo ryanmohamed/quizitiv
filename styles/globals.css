@@ -1,6 +1,4 @@
-
-
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300&family=Space+Grotesk:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dongle:wght@300&family=Kanit:wght@300&family=Mukta:wght@200&family=Oswald:wght@300&family=Quicksand:wght@300&family=Space+Grotesk:wght@300&display=swap');
 
 :root {
   --max-width: 1100px;
@@ -17,7 +15,7 @@
   --txt2: rgb(39, 39, 42);
 
   --bg3: #EFEFEF;
-  --txt3: #3E3E3E;
+  --txt3: #1f1f1f;
 
   --bg4: #D9D9D9;
   --txt4: #626262;
@@ -40,16 +38,23 @@
 
 html,
 body {
-  max-width: 100vw;
-  overflow-x: hidden;
-  scroll-behavior: smooth;
+  overflow-x: hidden !important;
+
+  position: relative !important; 
+  width: 100%;
+  -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
 }
+
 
 html {
   background-color: var(--bg1) !important;
 }
 
 body {
+
+  scroll-behavior: smooth;
   padding-top: var(--nav-height);
 }
 

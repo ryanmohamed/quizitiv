@@ -32,7 +32,8 @@ export default function Home() {
       <Head>
         <title>Quizitiv</title>
         <meta name="description" content="XP-based quiz social media platform." />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="viewport" content="user-scalable=no, width=device-width, " />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 

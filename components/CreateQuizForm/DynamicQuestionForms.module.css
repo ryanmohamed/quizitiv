@@ -1,0 +1,72 @@
+.Form {
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.Form > div {
+    width: 75%;
+}
+
+/* title and subject */
+.Form > div:first-child, .Form > div:nth-child(2) {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 50px;
+}
+
+.Form > div:first-child label{
+    font-size: 65px;
+    line-height: 60px;
+}
+
+.Form label {
+    font-family: 'Dongle', sans-serif;
+    font-size: 48px; 
+    line-height: 48px;
+    margin-bottom: 24px;
+    border-bottom: 2px solid var(--bg5);
+    padding: 0;
+    color: var(--txt2);
+    user-select: none;
+}
+
+.Form input {
+    font-family: 'Dongle', sans-serif;
+    font-size: 30px; 
+    line-height: 25px;
+    height: 50px;
+    padding: 20px;
+    border: none;
+    border-radius: 0.25em;
+    outline: none;
+}
+
+.Form > button {
+    background-color: red;
+}
+
+.Form span {
+    color: red;
+    font-size: 18px;
+    text-align: right;
+    margin: 10px 0;
+}
+
+
+
+
+
+
+
+
+
+/* question container */
+.QuestionContainer {
+    background: red;
+    padding: 0;
+    min-height: 300px;
+    z-index: 10;
+    position: relative;
+}

@@ -3,7 +3,7 @@ import styles from './XPBar.module.css'
 
 
 const levels: any = {
-    "Level 1": 10,
+    "Level 1": 0,
     "Level 2": 40,
     "Level 3": 100,
     "Level 4": 200,
