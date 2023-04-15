@@ -37,7 +37,7 @@ const Dashboard: NextPageWithLayout = () => {
                     </div>
                 </> : <>
                     <div className="w-[80vw] p-10">
-                        <p className="text-lg">Uh-oh, you haven't tried any quizzes yet!</p>
+                        <p className="text-lg">Uh-oh, you haven&apos;t tried any quizzes yet!</p>
                         <p>No worries! Try one in our community section.</p>
                     </div>
                 </>}
