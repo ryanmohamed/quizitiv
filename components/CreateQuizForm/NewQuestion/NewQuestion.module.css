@@ -4,6 +4,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    border: 1px solid var(--txt5);
+    border-radius: 0.25em;
+    padding: 25px;
 }
 
 .Container > div {
@@ -12,4 +16,9 @@
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+}
+
+.Container label {
+    font-size: 30px !important;
+    line-height: 30px !important;
 }

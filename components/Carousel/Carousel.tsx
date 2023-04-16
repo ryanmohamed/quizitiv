@@ -10,22 +10,16 @@ const variants = {
   enter: (direction: number) => {
     return {
       x: direction > 0 ? 1000 : -1000,
-      opacity: 0,
-      scale: 0
     }
   },
   center: {
     zIndex: 1,
     x: 0,
-    opacity: 1,
-    scale: 1
   },
   exit: (direction: number) => {
     return {
       zIndex: 0,
       x: direction < 0 ? 1000 : -1000,
-      opacity: 0,
-      scale: 0
     }
   }
 }
@@ -50,20 +44,17 @@ const Carousel = ({arr, toggle, myRef,...props}: any) => {
 
         <AnimatePresence initial={false} mode="wait">
           
-          <motion.div className="relative" ref={myRef}>
+          <motion.div className="relative overflow-hidden" ref={myRef}>
               <AnimatePresence initial={false} custom={direction} mode="wait">
                   <motion.div
-
-                      key={quizIdx} 
+                      key={page}
                       custom={direction} // custom arguments for function variants
                       variants={variants}
                       initial="enter"
                       animate="center"
                       exit="exit"
                       transition={{
-                          x: { type: "spring", stiffness: 300, damping: 30, delay: 0.05 },
-                          opacity: { duration: 0.3, delay: 0 },
-                          scale: { duration: 0.3, delay: 0 }
+                          x: { type: "spring", stiffness: 400, damping: 30 }
                       }}
                   >
                     <NewQuestion question={arr[quizIdx]} index={quizIdx} {...props}/>

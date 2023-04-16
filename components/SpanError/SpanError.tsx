@@ -5,7 +5,7 @@ const SpanError = ({children, ...props}: any) => {
 
     return (<>
     
-        <motion.span 
+    <motion.span 
             key={JSON.stringify(children, ignoreCircularReferences())}
             animate={{ x: [-20, 20, -8, 8, -7, 7, 0]}} 
             transition={{ duration: 0.5 }}

@@ -15,8 +15,8 @@ const Dashboard: NextPageWithLayout = () => {
 
     {console.log(dbUser?.scores)}
     return (<main>
-        <header className="p-16">
-            <div className="flex flex-col items-end w-full px-3">
+        <header className="m-12">
+            <div className="flex flex-col items-end w-full">
                 <h1 className="text-6xl mb-20 text-right">Welcome {!user.isAnonymous && 'back'} {user?.displayName?.split(' ')[0] || user?.email || 'Anonymous' }!</h1>
                 { dbUser?.xp !== null && dbUser?.xp !== undefined  && <XPBar xp={dbUser?.xp} /> }
             </div>

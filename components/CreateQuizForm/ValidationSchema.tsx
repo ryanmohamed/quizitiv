@@ -5,7 +5,7 @@ const schema = Yup.object().shape({
     subject: Yup.string().max(30, "30 character limit").required('Subject required.'),
     questions: Yup.array().of(
         Yup.object().shape({
-            question: Yup.string().max(256, "256 character limit").required('Question required.'),
+            question: Yup.string().max(256, "256 character limit").notOneOf(['none', null, undefined, ''], "Question required.").required('Question required.'),
             type: Yup.string().notOneOf(['none', null, undefined, ''], "You must select a type.").required("A type is required."),
             choices: Yup.object({
                 a: Yup.string(),

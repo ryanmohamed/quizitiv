@@ -66,7 +66,7 @@ export default function QuestionForm () {
                         { props.errors.subject &&  <SpanError>{props.errors.subject}</SpanError> }
                     </div>
                     <DynamicQuestionForms {...props} />
-                    <motion.button whileTap={{ scale: 1.1 }} whileHover={{ scale: 1.05 }} type="submit" className={styles.Submit}>Create quiz</motion.button>
+                    <button type="submit" className="w-[85%] flex justify-center items-center mt-4 outline-none transition px-4 transition hover:scale-105 rounded-md border-[1px] border-green-800 bg-green-500 hover:bg-green-600 focus:outline font-sans text-xl drop-shadow-md">Create quiz</button>
                 </form>
             ) } 
         </Formik>

@@ -6,19 +6,19 @@
 }
 
 .Form > div {
-    width: 75%;
+    width: 85%;
 }
 
 /* title and subject */
 .Form > div:first-child, .Form > div:nth-child(2) {
     display: flex;
     flex-direction: column;
-    margin-bottom: 50px;
+    margin-bottom: 25px;
 }
 
 .Form > div:first-child label{
-    font-size: 65px;
-    line-height: 60px;
+    font-size: 55px;
+    line-height: 50px;
 }
 
 .Form label {
@@ -36,21 +36,48 @@
     font-family: 'Dongle', sans-serif;
     font-size: 30px; 
     line-height: 25px;
-    height: 50px;
+    height: 60px;
     padding: 20px;
     border: none;
     border-radius: 0.25em;
     outline: none;
     width: 100%;
+    background-color: var(--bg1);
+    border: 1px solid var(--txt5);
+    color: var(--txt1);
 }
 
+/* .Form input:focus,
+.Form input:hover,
+.Form input:-webkit-autofill:focus,
+.Form input:-webkit-autofill:active,
+.Form input:-webkit-autofill:hover 
+{
+    outline: 0;
+    background-color: var(--bg1);
+    color: var(--txt1);
+} */
+
+/* .Form input:-webkit-autofill,
+.Form input:-webkit-autofill:focus,
+.Form input:-webkit-autofill:active,
+.Form input:-webkit-autofill:hover
+{
+    transition: 50000s ease-in-out 0s;
+} */
+
 .Form > button {
-    background-color: red;
+   font-size: 30px;
+   font-family: 'Dongle', sans-serif;
+   color: var(--bg1);
+   padding: 10px;
+   transition: 200ms;
+   text-shadow: 0 2px 10px black;
 }
 
 .Form span {
     color: red;
-    font-size: 18px;
+    font-size: 14px;
     text-align: right;
     margin: 10px 0;
 }
@@ -65,9 +92,12 @@
 
 /* question container */
 .QuestionContainer {
-    background: rgb(113, 232, 253);
+    /* background: rgb(113, 232, 253); */
     padding: 0;
     min-height: 300px;
     z-index: 10;
     position: relative;
+}
+.QuestionContainer input {
+    height: 50px;
 }
