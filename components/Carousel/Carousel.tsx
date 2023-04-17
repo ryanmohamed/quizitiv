@@ -40,11 +40,27 @@ const Carousel = ({arr, toggle, myRef,...props}: any) => {
         quizIdx = wrap(0, arr.length, page)
     }, [arr.length])
 
+    let flag = false
+
     return (<>
 
         <AnimatePresence initial={false} mode="wait">
           
-          <motion.div className="relative overflow-hidden" ref={myRef}>
+          <motion.div className="relative overflow-hidden cursor-pointer" ref={myRef} 
+            drag="x" 
+            dragSnapToOrigin
+            dragConstraints={{ left: -100, right: 100 }} 
+            // onDrag={
+            //   (e, info) => {
+            //     if (info.velocity.x > 500 && info.offset.x > 100 && !flag) {
+            //       flag = true
+            //       paginate(1)
+            //     }
+            //     else flag = false
+            //     console.log(info)
+            //   }
+            // }
+          >
               <AnimatePresence initial={false} custom={direction} mode="wait">
                   <motion.div
                       key={page}

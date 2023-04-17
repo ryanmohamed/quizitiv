@@ -26,7 +26,7 @@
     font-size: 48px; 
     line-height: 48px;
     margin-bottom: 24px;
-    border-bottom: 2px solid var(--bg5);
+    border-bottom: 2px solid var(--bg2);
     padding: 0;
     color: var(--txt2);
     user-select: none;
@@ -46,25 +46,6 @@
     border: 1px solid var(--txt5);
     color: var(--txt1);
 }
-
-/* .Form input:focus,
-.Form input:hover,
-.Form input:-webkit-autofill:focus,
-.Form input:-webkit-autofill:active,
-.Form input:-webkit-autofill:hover 
-{
-    outline: 0;
-    background-color: var(--bg1);
-    color: var(--txt1);
-} */
-
-/* .Form input:-webkit-autofill,
-.Form input:-webkit-autofill:focus,
-.Form input:-webkit-autofill:active,
-.Form input:-webkit-autofill:hover
-{
-    transition: 50000s ease-in-out 0s;
-} */
 
 .Form > button {
    font-size: 30px;

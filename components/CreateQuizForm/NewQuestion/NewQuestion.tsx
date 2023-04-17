@@ -8,6 +8,10 @@ import edit from '@/public/svgs/edit.svg'
 import trash from '@/public/svgs/trash.svg'
 import SpanError from '@/components/SpanError/SpanError'
 
+import Confirm from '@/svgs/Confirm'
+import Edit from '@/svgs/Edit'
+import Trash from '@/svgs/Trash'
+
 const inputClass = "appearance-none bg-[var(--bg1)] text-[var(--txt2)] border border-[var(--txt5)] rounded-md py-2 px-4 pr-8 leading-tight focus:outline-none focus:shadow-outline"
 
 const TF = ({question, index, ...props}: any) => {
@@ -81,7 +85,7 @@ const NewQuestion = ({question, index, arrayHelpers, ...props}: any) => {
             
 
                 {/*  TITLE  */}
-                <h1 className="self-end text-end border-b-2 border-[var(--txt4)] text-2xl text-[var(--txt5)] mb-[10px]">Question {index+1}</h1>
+                <h1 className="self-end text-end border-b-2 border-[var(--txt5)] text-2xl text-[var(--txt5)] mb-[10px]">Question {index+1}</h1>
 
                 { /* TYPE SELECT, LOCK, DELETE */ } 
                 <div className='flex flex-row-reverse items-center gap-4 w-full mt-4'>
@@ -102,7 +106,7 @@ const NewQuestion = ({question, index, arrayHelpers, ...props}: any) => {
                                 arrayHelpers.replace(index, cpy) // use array helpers to cause update to form values and therefore rerender     
                             } }
                         >
-                            <Image src={ question.confirmed ? edit : confirm } alt="confirm or edit" height={30} width={30}/>
+                            { question.confirmed? <Confirm stroke="var(--txt3)" /> : <Edit stroke="var(--txt3)" /> }
                         </button>
 
                         { index !== 0 && <motion.button 
@@ -112,7 +116,7 @@ const NewQuestion = ({question, index, arrayHelpers, ...props}: any) => {
                                 arrayHelpers.remove(index)
                             }}
                         >
-                                <Image src={ trash } alt="confirm or edit" height={30} width={30}/> 
+                                <Trash stroke="var(--txt3)" />
                         </motion.button> }
                     </div>
                 </div>

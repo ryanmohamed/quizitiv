@@ -1,0 +1,32 @@
+.QuizLinkContainer {
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden;
+    padding: 0;
+    width: calc((200px * 4) + (4px * 5));
+    height: auto;
+}
+
+.QuizLinkContainer > div {
+    height: 125px;
+    width: 200px;
+    max-width: 200px;
+    margin: 4px 0 0 4px;
+}
+
+@media (max-width: 320px) { 
+
+}
+
+@media (max-width: 576px) { 
+}
+
+@media (max-width: 960px) { 
+    .QuizLinkContainer {
+        width: calc((200px * 2) + (4px * 3));
+    }
+}
+
+@media (max-width: 1440px) { 
+
+}

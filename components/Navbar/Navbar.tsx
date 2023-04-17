@@ -93,8 +93,8 @@ export default function Navbar ({children} : any) {
                         exit={{ opacity: 0, scale: 0 }}
                         className={styles.dropdown}
                     >
-                        <Link href="dashboard"><li>Dashboard</li></Link>
-                        <Link href="community"><li>Community</li></Link>
+                        <Link href="/dashboard"><li>Dashboard</li></Link>
+                        <Link href="/community"><li>Community</li></Link>
                         <li onClick={()=>{
                             SignOut()
                             setToggle(false)
