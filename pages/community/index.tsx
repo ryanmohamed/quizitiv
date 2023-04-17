@@ -6,6 +6,8 @@ import useFirebaseFirestore from "@/hooks/useFirebaseFirestore"
 import useFirebaseUserContext from "@/hooks/useFirebaseUserContext"
 import useFirebaseFirestoreContext from "@/hooks/useFirebaseFirestoreContext"
 
+import { Formik, Form, Field } from "formik"
+
 const Community = () => {
     const { user } = useFirebaseUserContext()
     const { db, dbUser } = useFirebaseFirestoreContext()
@@ -35,10 +37,30 @@ const Community = () => {
                 <p className="text-lg mx-2">Or search for a quiz of your choice.</p>
             </header>
 
+            <div className="mb-10 flex justify-center items-center">
+                <Formik
+                    initialValues={{ subject: '' }}
+                    onSubmit={ async ({subject}: any) => {
+                        if (subject.trim() === ''){
+                            fetchRecentQuizzes(4)
+                        }
+                        else {
+                            queryQuizzesBySubject(subject)
+                        }
+                    }}
+                    onReset={()=>console.log("reset")}
+                >
+                <Form>
+                    <Field type="text" name="subject" placeholder="Search for a subject" className="h-12 w-[50vw] max-w-[500px] mr-4 rounded-3xl p-4 outline-none active:outline-none active:scale-105 hover:scale-105 transition cursor-pointer" style={{ boxShadow: '0 2px 20px var(--shadow-light)'}} />
+                    <button type="submit" className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg">Search</button>
+                </Form>
+                </Formik>
+            </div>
+
             <section className="flex flex-col items-center">
                 <QuizLinkContainer quizzes={quizHeaders}/>
                 <button  
-                    className="bg-green-500 hover:bg-green-600 text-lg text-[var(--bg3)] p-2 px-6 rounded-sm shadow-2xl mt-10 hover:scale-105 transition"
+                    className="bg-emerald-500 hover:bg-emerald-700 my-10 text-white font-bold py-2 px-4 rounded-lg"
                     onClick={()=>{fetchNextRecentQuizzes(2)}}>Load 2 more</button>
             </section>
 
