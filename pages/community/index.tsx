@@ -51,17 +51,21 @@ const Community = () => {
                     onReset={()=>console.log("reset")}
                 >
                 <Form>
-                    <Field type="text" name="subject" placeholder="Search for a subject" className="h-12 w-[50vw] max-w-[500px] mr-4 rounded-3xl p-4 outline-none active:outline-none active:scale-105 hover:scale-105 transition cursor-pointer" style={{ boxShadow: '0 2px 20px var(--shadow-light)'}} />
-                    <button type="submit" className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg">Search</button>
+                    <Field type="text" name="subject" placeholder="Search for a subject" className="h-12 w-[50vw] max-w-[500px] mr-6 rounded-3xl p-4 outline-none active:outline-none active:scale-105 hover:scale-105 transition cursor-pointer" style={{ boxShadow: '0 2px 10px var(--shadow-dark)'}} />
+                    <button type="submit" className="bg-red-500 hover:bg-red-700 hover:scale-105 transition text-white font-bold py-2 px-4 rounded-lg shadow-lg shadow-[var(--shadow-dark)]">Search</button>
                 </Form>
                 </Formik>
             </div>
 
-            <section className="flex flex-col items-center">
-                <QuizLinkContainer quizzes={quizHeaders}/>
-                <button  
+            <section className="flex flex-col items-center p-10">
+                { quizHeaders.length > 0 ? <>
+                    <QuizLinkContainer quizzes={quizHeaders}/>
+                    
+                    </> : <div className="text-3xl text-[var(--txt3)] font-bold flex items-center justify-center h-48">No quizzes found.</div> 
+                }
+                { quizHeaders.length > 2 && <button  
                     className="bg-emerald-500 hover:bg-emerald-700 my-10 text-white font-bold py-2 px-4 rounded-lg"
-                    onClick={()=>{fetchNextRecentQuizzes(2)}}>Load 2 more</button>
+                    onClick={()=>{fetchNextRecentQuizzes(2)}}>Load 2 more</button>}
             </section>
 
         </main>

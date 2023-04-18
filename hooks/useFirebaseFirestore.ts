@@ -167,6 +167,7 @@ const useFirebaseFirestore = () => {
         if (db && user && dbUser) {
             const querySnapshot = await getDocs(query(collection(db, "Quizzes"), where('subject', '==', subject), limit(5)))
             let headers: QuizHeader[] = []
+
             querySnapshot.forEach((doc) => {
                 // doc.data() never undefined for query doc snapshots
                 console.log(doc.id, " => ", doc.data())

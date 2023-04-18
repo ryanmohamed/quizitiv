@@ -65,12 +65,24 @@ const QuizPage = () => {
     { !quiz ? <>An error occured. <p>{error}</p> </> : <main className={styles.QuizPage}>
         
         <header>
-            <motion.h1 initial={{ y: -200 }} animate={{ y: 0 }} id="title">{quiz.title}</motion.h1>
+            <motion.h1 
+                initial={{ y: -200 }} 
+                animate={{ y: 0 }}
+            >
+                {quiz.title}
+            </motion.h1>
             <h3 id="subject">{quiz.subject}</h3>
 
-            <Image src={quiz.img_url} width={40} height={40} alt={"quiz poster profile pic"}/>
-            <h6 id="author">Author: <span>{quiz.author}</span></h6>
-            <h6 id="challenger">Challenger: <span>{dbUser?.displayName}</span></h6>
+
+            <div>
+                <Image src={quiz.img_url} width={40} height={40} alt={"quiz poster profile pic"}/>
+                <h6>
+                    Author: <span>{quiz.author}</span>
+                </h6>
+                <h6>
+                    Challenger: <span>{dbUser?.displayName}</span>
+                </h6>
+            </div>
 
 
             { /* TAKEN QUIZ BEFORE */
@@ -102,11 +114,33 @@ const QuizPage = () => {
                 </>
             }
 
-            <p className={styles.Completed}>Score: {score?.count || 0}/{quiz.questions.length}</p>
+            <div className="flex items-center justify-end">
+                <motion.p 
+                    key={ score?.count || 0 }
+                    initial={{ scale: 1, rotate: 0 }}
+                    animate={{ scale: [0.5, 1.0, 0.5, 1.0],}}
+                    className={styles.Score}
+                >
+                    Score: {score?.count || 0}/{quiz.questions.length}
+                </motion.p>
+            </div>
         </header>
 
-        { !start ? <motion.button key={'button'} className={styles.Start} animate={{ scale: [1, 1.01, 1.03, 1.05, 1.03, 1.01, 1] }} exit={{opacity: 0 }} transition={{ scale: { repeatType: 'loop', repeat: Infinity } }} onClick={()=>setStart(true)}>Click to start</motion.button> : <>
-
+        { !start ? <>
+            {/* QUIZ NOT STARTED YET */}
+            <div className="w-full flex items-center justify-center">
+                <motion.button 
+                    whileTap={{ scale: 0.9 }}
+                    animate={{ scale: [1, 1.01, 1.03, 1.05, 1.03, 1.01, 1] }}
+                    transition={{ repeat: Infinity, repeatType: "loop" }}
+                    onClick={()=>setStart(true)}
+                    className="bg-green-500 hover:bg-green-700 transition text-white py-2 px-4 rounded shadow-md shadow-[var(--shadow-dark)]"
+                >
+                    Click to start
+                </motion.button>
+            </div>
+        </> : <>
+            {/* QUIZ STARTED */}
             <Formik 
                 initialValues={{ answers: [] }}
                 validationSchema={ Yup.object({
