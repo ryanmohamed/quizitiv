@@ -40,8 +40,7 @@
 }
 
 .Score {
-    -webkit-text-stroke: 2px #991080;
-    color: #f472b6;
+    color: var(--txt3);
     font-family: 'Bangers';
     font-size: 35px;
     width: fit-content;
@@ -49,7 +48,7 @@
     text-shadow: 0 2px 20px var(--shadow-dark);
 }
 .QuizPage button {
-    font-size: 30px;
-    color: var(--bg1);
-    font-family: 'Bangers';
+    font-size: 50px;
+    color: #EFEFEF;
+    font-family: 'Dongle';
 }

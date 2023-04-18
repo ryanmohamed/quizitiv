@@ -1,0 +1,69 @@
+.Question {
+    margin-bottom: 10px;
+    padding: 10px;
+    font-family: 'Oswald', sans-serif;
+    color: var(--txt5);
+    padding: 50px min(80px, 20%);
+}
+
+.Question textarea {
+    border-radius: 0.5em;
+    padding: 10px;
+    min-height: 50px;
+    max-height: 150px;
+    max-width: 80%;
+    border: 2px solid #8f8b88;
+    background-color: #44403c;
+    color: #EFEFEF;
+    font-family: 'Dongle' !important;
+    font-size: 30px;
+    line-height: 25px;
+}
+
+.Question span {
+    color: red;
+    margin-top: 10px;
+    font-size: 18px;
+}
+
+.Question button {
+    font-size: 30px;
+}
+
+.Question label {
+    font-size: 18px;
+    color: #EFEFEF;
+}
+.Question label > input {
+    margin-right: 10px;
+}
+.Question label input[type="radio"] {
+    accent-color: #16a34a;
+}
+
+.RadioChoices {
+    display: flex;
+    flex-direction: column;
+    border-radius: 0.75em;
+    font-family: 'Dongle';
+    border: 2px solid #8f8b88;
+    width: fit-content;
+    max-width: 75%;
+    overflow: hidden;
+    background-color: #44403c;
+}
+.RadioChoices label {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 30px;
+    padding: 0 10px;
+}
+.RadioChoices label:hover {
+    background-color: #5d5956;
+    cursor: pointer;
+}
+.RadioChoices label:not(:last-child) {
+    border-bottom: 1px solid #8f8b88;
+}
+

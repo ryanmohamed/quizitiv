@@ -52,7 +52,7 @@ const Community = () => {
                 >
                 <Form>
                     <Field type="text" name="subject" placeholder="Search for a subject" className="h-12 w-[50vw] max-w-[500px] mr-6 rounded-3xl p-4 outline-none active:outline-none active:scale-105 hover:scale-105 transition cursor-pointer" style={{ boxShadow: '0 2px 10px var(--shadow-dark)'}} />
-                    <button type="submit" className="bg-red-500 hover:bg-red-700 hover:scale-105 transition text-white font-bold py-2 px-4 rounded-lg shadow-lg shadow-[var(--shadow-dark)]">Search</button>
+                    <button type="submit" className="bg-red-500 hover:bg-red-700 hover:scale-105 transition text-white font-bold py-2 px-4 rounded-lg shadow-[var(--shadow-dark)]">Search</button>
                 </Form>
                 </Formik>
             </div>

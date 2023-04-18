@@ -19,6 +19,10 @@ import useFirebaseFirestoreContext from '@/hooks/useFirebaseFirestoreContext'
 
 import Image from 'next/image'
 
+import Question from '@/components/Question/Question'
+import SpanError from '@/components/SpanError/SpanError'
+import ResizeablePanel from '@/components/ResizeablePanel/ResizeablePanel'
+
 const QuizPage = () => {
     const router = useRouter()
     const { user } = useFirebaseUserContext()
@@ -69,15 +73,15 @@ const QuizPage = () => {
                 initial={{ y: -200 }} 
                 animate={{ y: 0 }}
             >
-                {quiz.title}
+                {quiz?.title}
             </motion.h1>
-            <h3 id="subject">{quiz.subject}</h3>
+            <h3 id="subject">{quiz?.subject}</h3>
 
 
             <div>
-                <Image src={quiz.img_url} width={40} height={40} alt={"quiz poster profile pic"}/>
+                <Image src={quiz?.img_url || "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png"} width={40} height={40} alt={"quiz poster profile pic"}/>
                 <h6>
-                    Author: <span>{quiz.author}</span>
+                    Author: <span>{quiz?.author}</span>
                 </h6>
                 <h6>
                     Challenger: <span>{dbUser?.displayName}</span>
@@ -128,7 +132,7 @@ const QuizPage = () => {
 
         { !start ? <>
             {/* QUIZ NOT STARTED YET */}
-            <div className="w-full flex items-center justify-center">
+            <div className="w-full mt-48 flex items-center justify-center">
                 <motion.button 
                     whileTap={{ scale: 0.9 }}
                     animate={{ scale: [1, 1.01, 1.03, 1.05, 1.03, 1.01, 1] }}
@@ -145,9 +149,9 @@ const QuizPage = () => {
                 initialValues={{ answers: [] }}
                 validationSchema={ Yup.object({
                     answers: Yup.array()
-                        .of( Yup.string().required("Answer required.") )
+                        .of( Yup.string().notOneOf([null, undefined, ""], "Answer required.").max(256, "Maximum response is 256 characters.").required("Answer required.") )
                         .required("Must answer questions.")
-                        .length(quiz.questions.length, "")
+                        .length(quiz.questions.length, "Must answer all questions.")
                        
                 }).required("Required") }
                 onSubmit={async ({answers}: any)=>{
@@ -160,23 +164,26 @@ const QuizPage = () => {
                 }}
             >
                 
-                {/*
+                
+                {
                     props => <form onSubmit={(e) => {props.handleSubmit(e)}}>
                         
-                        <FieldArray 
-                            name="answers"
-                            render={ arrayHelpers => (<>
+                    
+                    <FieldArray 
+                        name="answers"
+                        render={ arrayHelpers => (<>
+                            {quiz.questions.map((question: any, index: any) => (<Question question={question} key={index} idx={index} arrayHelpers={arrayHelpers} formProps={props} style={{ borderBottom: index === quiz.questions.length-1 ? 'none' : '1px solid var(--txt4)'}} />))}
+                            {/* <QuestionCarousel questions={quiz.questions} score={score} /> */}
+                        </>) }
+                    />
 
-                                <QuestionCarousel questions={quiz.questions} score={score} />
+                    { !submitted && <div className="my-20 flex items-center justify-center"><button className="bg-green-500 hover:bg-green-700 px-10 flex items-center justify-center rounded-lg" type='submit'>Submit</button></div>}
+                    { /* if we have the main level error */ }
+                    { typeof props.errors.answers === 'string' && <div className="w-full flex"><SpanError className="text-[red] text-[18px] mt-[10px]">{props.errors.answers}</SpanError></div>}
 
-                            </>) }
-                        />
-
-                        { /* if we have the main level error }
-                        { typeof props.errors.answers === 'string' && <span id="feedback">{props.errors.answers}</span>}
-                        { !submitted && <button type='submit'>Submit</button>}
                     </form>
-                */}
+                }
+               
 
             </Formik>
 
