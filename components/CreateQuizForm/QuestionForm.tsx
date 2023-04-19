@@ -6,20 +6,23 @@ import { motion } from 'framer-motion'
 import styles from './DynamicQuestionForms.module.css'
 
 import useFirebaseUserContext from "../../hooks/useFirebaseUserContext"
-
 import useFirebaseFirestore from '../../hooks/useFirebaseFirestore'
+import useFirebaseFirestoreContext from '@/hooks/useFirebaseFirestoreContext'
 
 import schema from './ValidationSchema'
 import SpanError from '../SpanError/SpanError'
+import { useRouter } from 'next/router'
 
 export default function QuestionForm () {
     const { user } = useFirebaseUserContext()
+    const { dbUser } = useFirebaseFirestoreContext()
     const { createQuiz } = useFirebaseFirestore()
-
+    const router = useRouter()
 
     const onSubmit = async (values: any, { resetForm }: any) => {
         resetForm()
         await createQuiz(values)
+        router.push(`/community/${dbUser?.quizzes[dbUser?.quizzes.length - 1]}`)
     }
 
     return (

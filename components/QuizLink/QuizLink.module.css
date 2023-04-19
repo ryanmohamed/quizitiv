@@ -1,0 +1,32 @@
+.QuizLink {
+    padding: 20px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+}
+
+.Rating {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.Rating > p {
+    font-family: 'Bangers';
+    color: #EFEFEF;
+    display: flex;
+    align-items: center;
+}
+
+.Rating > p > div { 
+    margin-left: 10px;
+    border: 1px solid #EFEFEF;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px !important;
+    height: 35px !important;
+}

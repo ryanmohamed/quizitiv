@@ -2,6 +2,7 @@
     min-height: calc(100vh - var(--nav-height));
     padding-top: 40vh;
     position: relative;
+    scroll-behavior: smooth;
 }
 
 .QuizPage > header {
@@ -12,12 +13,13 @@
     left: 0;
     padding: 30px;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     align-content: center;
     background-color: var(--txt3);
 }
 .QuizPage > header > *:first-child {
-    grid-column: 1/4;
+    grid-column: 1/3;
+    margin-right: 40px;
 }
 .QuizPage > header h1 {
     color: var(--bg3) !important;
@@ -69,11 +71,33 @@
     flex-direction: column;
     align-items: flex-end;
     text-align: right;
-    align-self: flex-start;
+    padding: 10px 0;
 }
 .Rating, .Rating > p {
-    font-family: 'Dongle';
-    font-size: 30px;
-    line-height: 30px;
+    font-family: 'Bangers';
+    font-size: 35px;
+    line-height: 35px;
     color: var(--bg3);
+}
+.Rating > p {
+    margin-bottom: 10px;
+}
+.Rating button {
+    font-family: 'Bangers';
+    font-size: 18px;
+    line-height: 15px;
+    padding: 5px 20px;
+    border: 2px solid #16a34a;
+    border-radius: 1.5em;
+    margin-top: 20px;
+}
+
+@media screen and (max-width: 500px) {
+    .Rating, .Rating > p {
+        font-size: 25px;
+        line-height: 25px;
+    }
+    .Rating button {
+        margin-top: 10px;
+    }
 }

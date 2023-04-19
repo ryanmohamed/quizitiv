@@ -1,7 +1,7 @@
 import useFirebaseUserContext from "@/hooks/useFirebaseUserContext";
 import UserLayout from "@/layout/UserLayout/UserLayout";
 
-import { ReactElement, useEffect } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import type { NextPageWithLayout } from '../_app'
 
 import useFirebaseFirestoreContext from "@/hooks/useFirebaseFirestoreContext";
@@ -12,6 +12,7 @@ import CreateQuiz from "@/components/DashboardSections/CreateQuiz/CreateQuiz";
 const Dashboard: NextPageWithLayout = () => {
     const { user } = useFirebaseUserContext()
     const { dbUser } = useFirebaseFirestoreContext()
+    const [ num, setNum ] = useState(3)
 
     {console.log(dbUser?.scores)}
     return (<main>
@@ -27,13 +28,28 @@ const Dashboard: NextPageWithLayout = () => {
             <h1 className="text-4xl text-[var(--txt4)] self-start f">Your latest scores</h1>
             <div className="max-w-min border-[var(--bg4)] border-2 rounded-lg m-10">
                 { dbUser?.scores?.length > 0 ? <>
-                    <div className="w-max flex sm:flex-row xs:flex-col justify-start gap-10 p-4 flex-wrap"> 
-                        { dbUser?.scores && [...dbUser?.scores, ...dbUser?.scores, ...dbUser?.scores].map((score: any, index: any) => (
+                    <div className="w-[80vw] flex sm:flex-row xs:flex-col flex-wrap justify-start items-center p-4"> 
+                        { dbUser?.scores && dbUser?.scores.slice(0, num).map((score: any, index: any) => (
                         <ScoreTile {...score} index={index} key={index}/>
                     ))}
                     </div>
                     <div className="flex justify-center items-center mb-4">
-                        <button className="bg-[#257BDF] hover:bg-[#207BEF] hover:scale-105 transition text-[var(--bg1)] border-none md:text-lg sm:text-sm rounded-md md:h-[40px] md:w-[140px] xs:h-[30px] xs:w-[90px]">See more</button>
+                        { dbUser?.scores.length > num ? <button 
+                            onClick={()=>{
+                                if(num + 3 <= dbUser?.scores.length)
+                                    setNum(num + 3)
+                            }} 
+                            className="bg-[#257BDF] hover:bg-[#207BEF] hover:scale-105 transition text-[var(--bg1)] border-none md:text-lg sm:text-sm rounded-md md:h-[40px] md:w-[140px] xs:h-[30px] xs:w-[90px]">
+                            See more
+                        </button> : <button 
+                            onClick={()=>{
+                                if(num - 3 >= 0)
+                                    setNum(num - 3)
+                            }} 
+                            className="bg-[#257BDF] hover:bg-[#207BEF] hover:scale-105 transition text-[var(--bg1)] border-none md:text-lg sm:text-sm rounded-md md:h-[40px] md:w-[140px] xs:h-[30px] xs:w-[90px]">
+                            See less
+                        </button>
+                        }
                     </div>
                 </> : <>
                     <div className="w-[80vw] p-10">

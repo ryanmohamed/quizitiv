@@ -45,6 +45,7 @@
     background-color: var(--bg1);
     border: 1px solid var(--txt5);
     color: var(--txt1);
+    -webkit-padding:17px;
 }
 
 .Form > button {

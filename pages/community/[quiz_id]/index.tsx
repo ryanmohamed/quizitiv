@@ -75,14 +75,16 @@ const QuizPage = () => {
     { !quiz ? <>An error occured. <p>{error}</p> </> : <main className={styles.QuizPage}>
         
         <header>
-            <div>
-                <motion.h1 
-                    initial={{ y: -200 }} 
-                    animate={{ y: 0 }}
-                >
-                    {quiz?.title}
-                </motion.h1>
-                <h3 id="subject">{quiz?.subject}</h3>
+            <div className="flex flex-col justify-between">
+                <div>
+                    <motion.h1 
+                        initial={{ y: -200 }} 
+                        animate={{ y: 0 }}
+                    >
+                        {quiz?.title}
+                    </motion.h1>
+                    <h3>{quiz?.subject}</h3>
+                </div>
 
 
                 <div className="mt-4">
@@ -97,7 +99,7 @@ const QuizPage = () => {
             </div>
 
 
-            <div className="flex flex-row justify-end gap-10 items-between bg-red-100">
+            <div className="flex flex-col justify-between">
                 { /* TAKEN QUIZ BEFORE */
                     dbUser.scores.some((score: any) => score.id === router.query.quiz_id) && <>
                         
@@ -107,9 +109,9 @@ const QuizPage = () => {
                         </Modal> */}
 
                         <div className={styles.Rating}>
-                            <p> { hasRated() ? "Thanks for rating!" : "Help the author out by giving this quiz a rating!" } </p>
+                            <p> { hasRated() ? "Thanks for rating!" : "Rate this quiz for easy XP!" } </p>
                             <Rating
-                                style={{ maxWidth: 180, filter: hasRated() ? 'saturate(0.4)' : 'none' }}
+                                style={{ maxWidth: 180, maxHeight: 40,  filter: hasRated() ? 'saturate(0.4)' : 'none' }}
                                 value={ hasRated() ? quiz?.rating : rating }
                                 readOnly={ hasRated() ? true : false }
                                 onChange={setRating}
@@ -187,7 +189,7 @@ const QuizPage = () => {
                         </>) }
                     />
 
-                    { !submitted && <div className="my-20 flex items-center justify-center"><button className="bg-green-500 hover:bg-green-700 px-10 flex items-center justify-center rounded-lg" type='submit'>Submit</button></div>}
+                    { !submitted && <div className="my-20 flex items-center justify-center"><button className="px-10 border-2 border-green-600 font-[Bangers] flex items-center justify-center rounded-2xl" type='submit'>Submit Quiz</button></div>}
                     { /* if we have the main level error */ }
                     { typeof props.errors.answers === 'string' && <div className="w-full flex"><SpanError className="text-[red] text-[18px] mt-[10px]">{props.errors.answers}</SpanError></div>}
 

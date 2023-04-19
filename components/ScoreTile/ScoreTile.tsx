@@ -2,6 +2,7 @@ import useFirebaseFirestore from '@/hooks/useFirebaseFirestore'
 import useFirebaseFirestoreContext from '@/hooks/useFirebaseFirestoreContext'
 import useFirebaseUserContext from '@/hooks/useFirebaseUserContext'
 import react, { useEffect, useState } from 'react'
+import Link from 'next/link'
 import Star from '@/svgs/Star'
 import styles from './ScoreTile.module.css'
 
@@ -25,9 +26,9 @@ const ScoreTile = ({score, rating, id, index}: any) => {
     }, [])
 
     return (
-        <div className={styles.Container}> { quiz && <div className="bg-[var(--bg3)] rounded-md md:h-[240px] md:w-[240px] sm:h-[180px] sm:w-[180px] p-3 relative flex flex-col justify-between" key={index}>
+        <div className={styles.Container}> { quiz && <div className="bg-[var(--bg3)] m-4 rounded-md md:h-[240px] md:w-[240px] sm:h-[180px] sm:w-[180px] border-2 border-[var(--txt5)] p-3 relative flex flex-col justify-between" key={index}>
                 <div>
-                    <h1 className="md:text-4xl sm:text-2xl text-[var(--txt3)]">{quiz.title.substring(0, 10)}{(quiz.title.length > 10) ? "..." : ""}</h1>
+                    <Link href={`/community/${id}`}><h1 className="md:text-4xl sm:text-2xl text-[var(--txt3)]">{quiz.title.substring(0, 10)}{(quiz.title.length > 10) ? "..." : ""}</h1></Link>
                     <h1 className="text-lg text-[var(--txt3)]">{quiz.subject}</h1>
                     <p className="flex justify-start items-center my-2 gap-1">{[1,2,3,4,5].map((value) => (<Star fill={ value <= 3 ? "#257BDF" : "var(--txt4)"} key={value}/>))}</p>
                 </div>
