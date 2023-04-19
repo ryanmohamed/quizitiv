@@ -26,7 +26,7 @@ const Story = () => {
 
             <section>
                 <h1> Wanna make your own? </h1>
-                <p>Head to the Dashboard page, where you can find quizzes you've taken, quizzes you've made, and the ability to create or modify your own!</p>
+                <p>Head to the Dashboard page, where you can find quizzes you&apos;ve taken, quizzes you&apos;ve made, and the ability to create or modify your own!</p>
                 <Link href="/dashboard" style={{ width: 'fit-content', borderRadius: '2em', display: 'block' }}>
                     <div className="w-fit px-4 py-2 border-2 border-sky-600 font-[Bangers] text-lg rounded-3xl hover:scale-105 transition">
                         <p className="">Take me to the Dashboard page</p>
