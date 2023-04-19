@@ -2,7 +2,7 @@ import styles from './Navbar.module.css'
 import useFirebaseUserContext from '../../hooks/useFirebaseUserContext'
 import { useEffect, useState } from 'react'
 import useFirebaseAuth from '../../hooks/useFirebaseAuth'
-import { motion, AnimatePresence, MotionConfig } from 'framer-motion'
+import { motion, AnimatePresence, useMotionValue, useTransform, animate } from 'framer-motion'
 import useMeasure from 'react-use-measure'
 import ignoreCircularReferences from '../../lib/ignoreCircularReferences'
 import Link from 'next/link'
@@ -13,6 +13,7 @@ import dark from '../../public/svgs/dark.svg'
 
 import { useRouter } from 'next/router'
 import useThemeContext from '@/hooks/useThemeContext'
+import useFirebaseFirestoreContext from '@/hooks/useFirebaseFirestoreContext'
 // import useGetLevel from '../../hooks/useGetLevel'
 
 const d = 0.25
@@ -49,12 +50,16 @@ function ResizeablePanel({ children, toggle }: any){
 
 export default function Navbar ({children} : any) {
     const { user } = useFirebaseUserContext()
+    const { dbUser } = useFirebaseFirestoreContext()
     const [ photoURL, setPhotoURL ] = useState<any>(undefined)
     const [ toggle, setToggle ] = useState(false)
     const { SignOut } = useFirebaseAuth()
     const router = useRouter()
 
     const { darkMode, setDarkMode } = useThemeContext()
+
+    const count = useMotionValue(0)
+    const rounded = useTransform(count, Math.round)
 
     useEffect(() => {
         if ( user?.photoURL === null ) 
@@ -63,7 +68,12 @@ export default function Navbar ({children} : any) {
             setPhotoURL(user?.photoURL)
     }, [user])
 
-    
+    useEffect(() => {
+        let to = dbUser?.xp ? dbUser.xp : 0;
+        const controls = animate(count, to)
+        return controls.stop
+    }, [user, dbUser, dbUser?.xp])
+
 
     console.log(router.pathname)
     return (
@@ -78,6 +88,11 @@ export default function Navbar ({children} : any) {
                 </span>
 
             </div>
+
+            { dbUser && <div>
+                <motion.div className="flex font-[Bangers] text-green-500 text-2xl">XP <motion.p className="text-green-500 ml-2">{rounded}</motion.p></motion.div>    
+            </div>
+            }
         
 
             { user && <div className={styles.user} >

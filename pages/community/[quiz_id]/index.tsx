@@ -139,15 +139,12 @@ const QuizPage = () => {
         { !start ? <>
             {/* QUIZ NOT STARTED YET */}
             <div className="w-full mt-48 flex items-center justify-center">
-                <motion.button 
-                    whileTap={{ scale: 0.9 }}
-                    // animate={{ scale: [1, 1.01, 1.03, 1.05, 1.03, 1.01, 1] }}
-                    transition={{ repeat: Infinity, repeatType: "loop" }}
+                <button 
                     onClick={()=>setStart(true)}
-                    className="bg-green-500 hover:bg-green-700 transition text-white py-2 px-4 rounded shadow-md shadow-[var(--shadow-dark)]"
+                    className="transition text-[var(--txt3)] text-2xl font-[Bangers] py-2 px-10 border-2 border-green-600 rounded-2xl hover:scale-105"
                 >
                     Click to start
-                </motion.button>
+                </button>
             </div>
         </> : <>
             {/* QUIZ STARTED */}
@@ -189,10 +186,10 @@ const QuizPage = () => {
                         </>) }
                     />
 
-                    { !submitted && <div className="my-20 flex items-center justify-center"><button className="px-10 border-2 border-green-600 font-[Bangers] flex items-center justify-center rounded-2xl" type='submit'>Submit Quiz</button></div>}
+                    
                     { /* if we have the main level error */ }
-                    { typeof props.errors.answers === 'string' && <div className="w-full flex"><SpanError className="text-[red] text-[18px] mt-[10px]">{props.errors.answers}</SpanError></div>}
-
+                    { typeof props.errors.answers === 'string' && <div className="w-full flex pl-12 "><SpanError className="text-[red] text-[18px] mt-[10px]">{props.errors.answers}</SpanError></div>}
+                    { !submitted && <div className="my-20 flex items-center justify-center"><button className="px-10 border-2 border-green-600 text-2xl text-[var(--txt3)] font-[Bangers] flex items-center justify-center rounded-2xl" type='submit'>Submit Quiz</button></div>}
 
                     </form>
 
