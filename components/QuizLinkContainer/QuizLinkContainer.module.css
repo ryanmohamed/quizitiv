@@ -1,6 +1,7 @@
 .QuizLinkContainer {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     overflow: hidden;
     padding: 0;
     width: calc((200px * 4) + (4px * 5));

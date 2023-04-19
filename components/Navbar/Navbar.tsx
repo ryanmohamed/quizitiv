@@ -90,7 +90,7 @@ export default function Navbar ({children} : any) {
             </div>
 
             { dbUser && <div>
-                <motion.div className="flex font-[Bangers] text-green-500 text-2xl">XP <motion.p className="text-green-500 ml-2">{rounded}</motion.p></motion.div>    
+                <motion.div className="flex font-[Bangers] text-green-500 text-2xl z-[100]">XP <motion.p className="text-green-500 ml-2">{rounded}</motion.p></motion.div>    
             </div>
             }
         
