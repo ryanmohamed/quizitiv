@@ -11,10 +11,10 @@ const CreateQuiz = ({...props}) => {
 
     return (
         <motion.section className="w-full p-12 flex flex-col">
-            <h1 className="text-4xl text-[var(--txt4)] mb-4">Create a Quiz</h1>
+            <h1 className="text-4xl text-[var(--txt3)] mb-4">Create a Quiz</h1>
             <Add 
                 onClick={() => setToggle(!toggle)}
-                stroke="var(--txt4)" 
+                stroke="var(--txt3)" 
                 sub={!toggle}
                 className="hover:scale-105 transition cursor-pointer"/>
 

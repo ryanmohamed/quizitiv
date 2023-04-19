@@ -40,7 +40,7 @@ export default function Home() {
       <main className={styles.home}>
       
         <Landing />
-        <LandingWave style={{ fill: "var(--bg1)", transition: '200ms' }} svgstyle={{ width: '100%', height: 'auto', position: 'absolute', zIndex: '10', filter: 'drop-shadow(0 10px 5px rgba(19, 19, 19, 0.6))', transform: 'translateY(-10px)' }} />
+        <LandingWave style={{ fill: "var(--bg1)", transition: '200ms' }} svgstyle={{ width: '100%', height: 'auto', position: 'absolute', zIndex: '10', transform: 'translateY(-10px)' }} />
         { !user && <GetStarted /> }
         <Story />
 
