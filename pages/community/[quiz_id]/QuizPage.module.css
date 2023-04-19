@@ -7,6 +7,7 @@
 
 .QuizPage > header {
     min-height: 30vh;
+    max-height: 40vh;
     width: 100%;
     position: fixed;
     top: var(--nav-height);

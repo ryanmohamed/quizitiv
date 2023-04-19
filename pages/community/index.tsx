@@ -57,7 +57,7 @@ const Community = () => {
                 </Formik>
             </div>
 
-            <section className="flex flex-col items-center p-10">
+            <section className="flex flex-col items-center p-10 mb-20">
                 { quizHeaders.length > 0 ? <>
                     <QuizLinkContainer quizzes={quizHeaders}/>
                     

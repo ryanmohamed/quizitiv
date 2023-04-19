@@ -16,7 +16,7 @@ const Landing = () => {
                 </div>
 
                 <div className="flex flex-col items-center justify-between relative z-50 w-1/3">
-                    <Image src={item} alt="hero" className="max-w-xs absolute inset-1/2 z-10" style={{ transform: "translate3d(-50%, -50%, 0)" }}/>
+                    <Image src={item} alt="hero" className="max-w-xs absolute top-1/2 left-1/2 inset-1/2 z-10" style={{ transform: "translate3d(-50%, -50%, 0)" }}/>
                     { user === null && <a href="#mid" className="z-50 bg-sky-500 text-slate-100 p-2 m-2 border-solid border-2 rounded-sm text-center">Sign up or log in</a> }
                     <Link href="/dashboard" className="z-50 bg-sky-500 text-slate-100 p-2 m-2 border-solid border-2 rounded-sm text-center">Check out your dashboard</Link>
                 </div>
