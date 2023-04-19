@@ -31,7 +31,7 @@ const QuizPage = () => {
     const router = useRouter()
     const { user } = useFirebaseUserContext()
     const { db, dbUser } = useFirebaseFirestoreContext()
-    const { fetchQuizById, submitAnswers, submitRating, tempSubmitAnswers } = useFirebaseFirestore()
+    const { fetchQuizById, submitAnswers, submitRating } = useFirebaseFirestore()
 
     // state
     const [ quiz, setQuiz ] = useState<any>(null)
@@ -112,16 +112,23 @@ const QuizPage = () => {
                             <p> { hasRated() ? "Thanks for rating!" : "Rate this quiz for easy XP!" } </p>
                             <Rating
                                 style={{ maxWidth: 180, maxHeight: 40,  filter: hasRated() ? 'saturate(0.4)' : 'none' }}
-                                value={ hasRated() ? quiz?.rating : rating }
+                                value={ rating }
                                 readOnly={ hasRated() ? true : false }
                                 onChange={setRating}
                             />
                             { !hasRated() && <button onClick={async () => {
+                                // await submitRating(rating, router.query.quiz_id)
+                                // .then((val) => {
+                                //     setQuiz(val?.data())
+                                // }) //retrieve new version
                                 await submitRating(rating, router.query.quiz_id)
                                 .then((val) => {
-                                    setQuiz(val?.data())
-                                }) //retrieve new version
-                            }}>
+                                    setRating(val.data.new_rating)
+                                })
+                                .catch((err) => {
+                                    setError(err.message)  
+                                })
+                           }}>
                                 Submit rating
                             </button>}
                         </div>
@@ -161,7 +168,7 @@ const QuizPage = () => {
                     const answers = values.answers
                     const quiz_id = router.query.quiz_id
                     setLoading(true)
-                    await tempSubmitAnswers(answers, quiz_id)
+                    await submitAnswers(answers, quiz_id)
                     .then((values) => {
                         if (values.status === 200) {
                             const { message, score } = values.data

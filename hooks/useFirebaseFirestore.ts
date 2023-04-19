@@ -198,56 +198,8 @@ const useFirebaseFirestore = () => {
         }
     }
 
-    // recall we need to only submit answers
-    // if the user hasn't taken the question before
-    // luckily we have the dbUser state to check
-    // this function requires 1 read and 1 write
+    /* utilize sinatra middleware */
     const submitAnswers = async (answers: any, quiz_id: any) => {
-        // fetch the answers for each submission, because we still want to return 
-        // our current score
-        if(user && dbUser && db){
-            let values = {
-                count: 0,
-                answer_key: []
-            }
-            await getDoc(doc(db, "Quizzes", quiz_id))
-            .then((docSnapshot: any) => {
-                if(docSnapshot.exists()){
-                    values.answer_key = docSnapshot.data()?.questions.map((question: any) => question.answer)
-                    // score is how many these arrays share
-                    // don't do anything if the arrays dont share the same length
-                    if(values.answer_key.length === answers.length){
-                        for (let i = 0; i < answers.length; i++)
-                        
-                            if (values.answer_key[i] === answers[i])
-                                values.count++
-
-                        console.log("You scored: ", values.count)
-
-                        // only perform the write operation if the dbUser hasn't yet taken this quiz
-                        // now write the score to the users document
-                        // if the array has no score for the same quiz_id
-                        if (!dbUser.scores.some((score: any) => score.id === quiz_id)) {
-                            console.log("Hasn't taken before.")
-                            updateDoc(doc(db, "Users", user.uid), {
-                                scores: [...dbUser?.scores, {
-                                    id: quiz_id,
-                                    score: values.count,
-                                    rating: 0
-                                }]
-                            })
-                            .then(() => console.log("Succesfully updated score to: ", values.count))
-                            .catch((err: any) => console.log("An error occured writing score to profile: ", err))
-                        }
-                    }
-                }
-            })
-            .catch((err: any) => console.log("Error occured submitting answers: ", err))
-            return values
-        }
-    }
-
-    const tempSubmitAnswers = async (answers: any, quiz_id: any) => {
         const { uid } = user
         const payload = {
             answers: answers,
@@ -262,51 +214,19 @@ const useFirebaseFirestore = () => {
         })
     }
 
-    // when we submit a rating, two things have to change
-    // first, the quiz itself has to update it's average rating by incrementing it's attempts and then ca
-    // second, the user has to update itself individual score
-    // the reasoning is to save us a future read
-    // this comes at the cost of 1 extra write but this type of component has one interaction per user
     const submitRating = async (rating: any, quiz_id: any) => {
-        // user has never submitted a rating before for this quiz, cap this at one use for each quiz
-        if(db && dbUser && user && !dbUser?.scores.some((score: any) => score.id === quiz_id && score.rating !== 0 )){
-            // update the quiz's rating, to do that we need a previous value
-            // so this operation will cost 1 read and 1 write
-            // run a transaction since this operation may clash with other users
-            await runTransaction(db, async (transaction) => {
-                // 1 read
-                const docSnapshot = await transaction.get(doc(db, "Quizzes", quiz_id))
-                if (docSnapshot.exists()) {
-                    const prevRating = docSnapshot.data()?.rating
-                    const prevAttempts = docSnapshot.data()?.attempts // we can also use the increment function for this by why not if we're already reading
-                
-                    // 1 write - update quiz fields
-                    // 1 write - update user fields
-                    // already have user document to retrieve previous values
-                    const newScores = dbUser?.scores.map((score: any) => ({
-                        id: score.id,
-                        score: score.score, 
-                        rating: score.id === quiz_id ? rating : score.rating
-                    }))
-
-                    transaction.update(doc(db, "Quizzes", quiz_id), { // if statement handles empty document
-                        attempts: prevAttempts+1,
-                        rating: (prevRating+rating)/2
-                    })
-                    .update(doc(db, "Users", user.uid), {
-                        scores: newScores
-                    })
-
-                    console.log("Finished transaction!")
-                }
- 
-            })
-
-            // perform once more read opeartion to return updated quiz
-            const docSnapshot = await getDoc(doc(db, "Quizzes", quiz_id))
-            return docSnapshot
-
+        const { uid } = user
+        const payload = {
+            rating: rating,
+            quiz_id: quiz_id, 
+            uid: uid
         }
+        return await axios.post("/api/submit_rating", payload, {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + user.accessToken 
+            }   
+        })
     }
 
 
@@ -343,7 +263,7 @@ const useFirebaseFirestore = () => {
 
     
     // createQuiz, getLatest, quizzes, getQuiz, checkAnswer, createUser, createScore, updateScore, getScores, updatePlayerRating, updateQuizRating, getUser
-    return { createQuiz, fetchRecentQuizzes, fetchNextRecentQuizzes, quizHeaders, fetchQuizById, submitAnswers, submitRating, tempSubmitAnswers, queryQuizzesBySubject }
+    return { createQuiz, fetchRecentQuizzes, fetchNextRecentQuizzes, quizHeaders, fetchQuizById, submitAnswers, submitRating, queryQuizzesBySubject }
 }
 
 export default useFirebaseFirestore
