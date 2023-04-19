@@ -9,6 +9,9 @@ import useFirebaseFirestoreContext from "./useFirebaseFirestoreContext"
 
 // fire store
 import { where, query, addDoc, collection, doc, orderBy, Timestamp, limit, updateDoc, getDocs, startAfter, getDoc, increment, runTransaction } from "firebase/firestore"
+
+import axios from "axios"
+
 // CRUD operations
 const useFirebaseFirestore = () => {
     const { app } = useFirebaseAppContext()
@@ -244,6 +247,21 @@ const useFirebaseFirestore = () => {
         }
     }
 
+    const tempSubmitAnswers = async (answers: any, quiz_id: any) => {
+        const { uid } = user
+        const payload = {
+            answers: answers,
+            quiz_id: quiz_id, 
+            uid: uid
+        }
+        return await axios.post("/api/submit_answers", payload, {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + user.accessToken 
+            }   
+        })
+    }
+
     // when we submit a rating, two things have to change
     // first, the quiz itself has to update it's average rating by incrementing it's attempts and then ca
     // second, the user has to update itself individual score
@@ -325,7 +343,7 @@ const useFirebaseFirestore = () => {
 
     
     // createQuiz, getLatest, quizzes, getQuiz, checkAnswer, createUser, createScore, updateScore, getScores, updatePlayerRating, updateQuizRating, getUser
-    return { createQuiz, fetchRecentQuizzes, fetchNextRecentQuizzes, quizHeaders, fetchQuizById, submitAnswers, submitRating, queryQuizzesBySubject }
+    return { createQuiz, fetchRecentQuizzes, fetchNextRecentQuizzes, quizHeaders, fetchQuizById, submitAnswers, submitRating, tempSubmitAnswers, queryQuizzesBySubject }
 }
 
 export default useFirebaseFirestore

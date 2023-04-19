@@ -5,6 +5,8 @@ import useFirebaseFirestore from '../../hooks/useFirebaseFirestore'
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import SpanError from '../SpanError/SpanError'
+import Unlock from '@/svgs/Unlock'
+import Lock from '@/svgs/Lock'
 
 const Short = (props: any) => {
     const { idx, lock } = props
@@ -63,14 +65,15 @@ const Question = (props: any) => {
             style={props.style}
             key={idx}
         >
-            <h1 className="text-4xl text-[var(--txt4)]">Question {idx+1}</h1>
+            <div className="flex">
+                <h1 className="text-4xl text-[var(--txt4)]">Question {idx+1}</h1>
+                <button className="ml-4" onClick={()=>setToggle(!toggle)}>{ toggle ? <Lock fill="var(--txt4)"/> : <Unlock fill="var(--txt4)"/> }</button>
+            </div>
             <h1 className="text-2xl text-[var(--txt2)] mt-4">{question}</h1>
             <div className="flex flex-col mt-8">
                 {type === 'short' ? <Short lock={toggle} idx={idx} /> : type === 'mc' ? <MultipleChoice choices={choices} lock={toggle} idx={idx}/> : <TrueOrFalse lock={toggle} idx={idx} /> }
-                { console.log(formProps.errors.answers)}
                 {  typeof formProps.errors?.answers === 'object' && <div className="w-full flex"><SpanError>{formProps.errors?.answers[idx]}</SpanError></div>} 
                 { children }
-                <button onClick={()=>setToggle(!toggle)} className='mt-8 w-fit self-end bg-orange-500 hover:bg-orange-700 border-amber-600 border-2 txt-white px-2 rounded-lg flex items-center justify-center font-bold ' style={{fontFamily: 'Dongle', color: '#EFEFEF'}} type="button">{toggle ? "Unlock" : "Lock"} answer</button>
             </div>
             
             

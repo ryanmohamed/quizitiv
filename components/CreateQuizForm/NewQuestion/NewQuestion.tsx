@@ -106,7 +106,7 @@ const NewQuestion = ({question, index, arrayHelpers, ...props}: any) => {
                                 arrayHelpers.replace(index, cpy) // use array helpers to cause update to form values and therefore rerender     
                             } }
                         >
-                            { question.confirmed? <Confirm stroke="var(--txt3)" /> : <Edit stroke="var(--txt3)" /> }
+                            { !question.confirmed? <Confirm stroke="var(--txt3)" /> : <Edit stroke="var(--txt3)" /> }
                         </button>
 
                         { index !== 0 && <motion.button 

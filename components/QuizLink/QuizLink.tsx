@@ -16,11 +16,11 @@ const QuizLink = ({quiz, ...props}: any) => {
             animate={{scale: 1, opacity: 1}}
             exit={{scale: 0, opacity: 0}}
             whileHover={{scale: 0.97, opacity: 1}}
-            className="flex flex-col items-center justify-center cursor-pointer hover:shadow-lg" 
+            className="flex flex-col items-center justify-center p-4 cursor-pointer hover:shadow-lg" 
             style={{ background: `${bgs[Math.floor(Math.random() * bgs.length)]}`}}>
             <Link href={`/community/${quiz.id}`}>
-            <h1 className="text-white text-3xl">{quiz.title}</h1>
-            <h1 className="text-slate-200 text-lg">{quiz.subject}</h1>
+            <h1 className={`text-white  ${ quiz.title.length > 9 ? "text-md" : "text-3xl"}`}>{quiz.title}</h1>
+            <h1 className={`text-slate-200 ${ quiz.title.length > 9 ? "text-sm" : "text-lg"}`}>{quiz.subject}</h1>
             <p className="text-slate-300 text-xs">{quiz.num_questions} questions</p>
             <Rating
                 style={{ maxWidth: 100 }}

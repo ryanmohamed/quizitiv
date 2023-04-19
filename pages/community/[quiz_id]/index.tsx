@@ -23,20 +23,26 @@ import Question from '@/components/Question/Question'
 import SpanError from '@/components/SpanError/SpanError'
 import ResizeablePanel from '@/components/ResizeablePanel/ResizeablePanel'
 
+import axios from 'axios'
+
+import useMeasure from 'react-use-measure'
+
 const QuizPage = () => {
     const router = useRouter()
     const { user } = useFirebaseUserContext()
     const { db, dbUser } = useFirebaseFirestoreContext()
-    const { fetchQuizById, submitAnswers, submitRating } = useFirebaseFirestore()
+    const { fetchQuizById, submitAnswers, submitRating, tempSubmitAnswers } = useFirebaseFirestore()
 
     // state
     const [ quiz, setQuiz ] = useState<any>(null)
     const [ error, setError ] = useState<any>(null)
     const [ start, setStart ] = useState<boolean>(false)
     
-    const [ score, setScore ] = useState<any>(null)
+    const [ score, setScore ] = useState<any>(0)
     const [ rating, setRating ] = useState<any>(3) // Initial value
     const [ submitted, setSubmitted ] = useState<boolean>(false)
+
+    const [loading, setLoading] = useState(false)
 
     // we only want to fetch the quiz once on mount
     // but similarly as before, wait for db and user to be defined
@@ -69,63 +75,61 @@ const QuizPage = () => {
     { !quiz ? <>An error occured. <p>{error}</p> </> : <main className={styles.QuizPage}>
         
         <header>
-            <motion.h1 
-                initial={{ y: -200 }} 
-                animate={{ y: 0 }}
-            >
-                {quiz?.title}
-            </motion.h1>
-            <h3 id="subject">{quiz?.subject}</h3>
-
-
             <div>
-                <Image src={quiz?.img_url || "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png"} width={40} height={40} alt={"quiz poster profile pic"}/>
-                <h6>
-                    Author: <span>{quiz?.author}</span>
-                </h6>
-                <h6>
-                    Challenger: <span>{dbUser?.displayName}</span>
-                </h6>
+                <motion.h1 
+                    initial={{ y: -200 }} 
+                    animate={{ y: 0 }}
+                >
+                    {quiz?.title}
+                </motion.h1>
+                <h3 id="subject">{quiz?.subject}</h3>
+
+
+                <div className="mt-4">
+                    <Image src={quiz?.img_url || "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png"} width={40} height={40} alt={"quiz poster profile pic"}/>
+                    <h6>
+                        Author: <span>{quiz?.author}</span>
+                    </h6>
+                    <h6>
+                        Challenger: <span>{dbUser?.displayName}</span>
+                    </h6>
+                </div>
             </div>
 
 
-            { /* TAKEN QUIZ BEFORE */
-                dbUser.scores.some((score: any) => score.id === router.query.quiz_id) && <>
-                    
-                    {/* <Modal>
-                        <h6>You&apos;ve taken this quiz before! </h6>
-                        <h6 id="history">You scored: {dbUser.scores.find((score: any) => score.id === router.query.quiz_id)?.score}</h6>
-                    </Modal> */}
+            <div className="flex flex-row justify-end gap-10 items-between bg-red-100">
+                { /* TAKEN QUIZ BEFORE */
+                    dbUser.scores.some((score: any) => score.id === router.query.quiz_id) && <>
+                        
+                        {/* <Modal>
+                            <h6>You&apos;ve taken this quiz before! </h6>
+                            <h6 id="history">You scored: {dbUser.scores.find((score: any) => score.id === router.query.quiz_id)?.score}</h6>
+                        </Modal> */}
 
-                    <div className={styles.Rating}>
-                        <p> { hasRated() ? "Thanks for rating!" : "Help the author out by giving this quiz a rating!" } </p>
-                        <Rating
-                            style={{ maxWidth: 180, filter: hasRated() ? 'saturate(0.4)' : 'none' }}
-                            value={ hasRated() ? quiz?.rating : rating }
-                            readOnly={ hasRated() ? true : false }
-                            onChange={setRating}
-                        />
-                        { !hasRated() && <button onClick={async () => {
-                            await submitRating(rating, router.query.quiz_id)
-                            .then((val) => {
-                                setQuiz(val?.data())
-                            }) //retrieve new version
-                        }}>
-                            Submit rating
-                        </button>}
-                    </div>
+                        <div className={styles.Rating}>
+                            <p> { hasRated() ? "Thanks for rating!" : "Help the author out by giving this quiz a rating!" } </p>
+                            <Rating
+                                style={{ maxWidth: 180, filter: hasRated() ? 'saturate(0.4)' : 'none' }}
+                                value={ hasRated() ? quiz?.rating : rating }
+                                readOnly={ hasRated() ? true : false }
+                                onChange={setRating}
+                            />
+                            { !hasRated() && <button onClick={async () => {
+                                await submitRating(rating, router.query.quiz_id)
+                                .then((val) => {
+                                    setQuiz(val?.data())
+                                }) //retrieve new version
+                            }}>
+                                Submit rating
+                            </button>}
+                        </div>
 
-                </>
-            }
-
-            <div className="flex items-center justify-end">
+                    </>
+                }
                 <motion.p 
-                    key={ score?.count || 0 }
-                    initial={{ scale: 1, rotate: 0 }}
-                    animate={{ scale: [0.5, 1.0, 0.5, 1.0],}}
                     className={styles.Score}
                 >
-                    Score: {score?.count || 0}/{quiz.questions.length}
+                    Score: {score}/{quiz.questions.length}
                 </motion.p>
             </div>
         </header>
@@ -135,7 +139,7 @@ const QuizPage = () => {
             <div className="w-full mt-48 flex items-center justify-center">
                 <motion.button 
                     whileTap={{ scale: 0.9 }}
-                    animate={{ scale: [1, 1.01, 1.03, 1.05, 1.03, 1.01, 1] }}
+                    // animate={{ scale: [1, 1.01, 1.03, 1.05, 1.03, 1.01, 1] }}
                     transition={{ repeat: Infinity, repeatType: "loop" }}
                     onClick={()=>setStart(true)}
                     className="bg-green-500 hover:bg-green-700 transition text-white py-2 px-4 rounded shadow-md shadow-[var(--shadow-dark)]"
@@ -154,13 +158,19 @@ const QuizPage = () => {
                         .length(quiz.questions.length, "Must answer all questions.")
                        
                 }).required("Required") }
-                onSubmit={async ({answers}: any)=>{
-                    setScore(null)
-                    const s = await submitAnswers(answers, router.query.quiz_id)
-                    if(s) {
-                        setScore(s)
-                        setSubmitted(true)
-                    }
+                onSubmit={async (values: any) => {
+                    const answers = values.answers
+                    const quiz_id = router.query.quiz_id
+                    setLoading(true)
+                    await tempSubmitAnswers(answers, quiz_id)
+                    .then((values) => {
+                        if (values.status === 200) {
+                            const { message, score } = values.data
+                            score && setScore(score) 
+                        }
+                        setLoading(false)
+                    })
+                    .catch((err: any) => { setError(err.message) })
                 }}
             >
                 
@@ -181,13 +191,19 @@ const QuizPage = () => {
                     { /* if we have the main level error */ }
                     { typeof props.errors.answers === 'string' && <div className="w-full flex"><SpanError className="text-[red] text-[18px] mt-[10px]">{props.errors.answers}</SpanError></div>}
 
+
                     </form>
+
+                        
+
                 }
                
 
             </Formik>
 
         </> }
+        
+        
 
     </main>}
     </>)

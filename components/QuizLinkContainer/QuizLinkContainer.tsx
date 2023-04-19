@@ -7,7 +7,7 @@ const QuizLinkContainer = ({quizzes}: any) => {
     return (
         <div className="w-full flex items-center justify-center">
             <div className={styles.QuizLinkContainer}>
-                <AnimatePresence mode="wait">
+                <AnimatePresence mode="sync">
                     {quizzes.map((quiz: any, key: any) => (<QuizLink quiz={quiz} key={key}/>))}
                 </AnimatePresence>
             </div>
