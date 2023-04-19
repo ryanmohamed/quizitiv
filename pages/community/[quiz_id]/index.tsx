@@ -75,7 +75,7 @@ const QuizPage = () => {
     { !quiz ? <>An error occured. <p>{error}</p> </> : <main className={styles.QuizPage}>
         
         <header>
-            <div className="flex flex-col justify-between">
+            <div className="flex flex-col justify-betwee items-start">
                 <div>
                     <motion.h1 
                         initial={{ y: -200 }} 

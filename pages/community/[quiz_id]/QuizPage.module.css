@@ -60,7 +60,8 @@
     font-family: 'Bangers';
     font-size: 35px;
     width: fit-content;
-    align-self: flex-end;
+    text-align: right;
+    align-self: end;
     text-shadow: 0 2px 20px var(--shadow-light);
 }
 .QuizPage button {
