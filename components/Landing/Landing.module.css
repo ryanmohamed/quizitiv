@@ -27,7 +27,7 @@
         box-sizing: content-box;
         flex-direction: column;
         height: 70vh;
-        padding: 50px 0;
+        padding: 50px 0 100px;
     }
     .container div,
     .container div p {

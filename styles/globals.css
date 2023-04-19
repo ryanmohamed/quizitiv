@@ -49,7 +49,7 @@ body {
 
 
 html {
-  background: linear-gradient(10deg, var(--bg5), var(--bg1)) !important;
+  background: var(--bg1);
 }
 
 body {

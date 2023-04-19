@@ -3,6 +3,7 @@
     height: fit-content;
     width: 100%;
     padding: 30vh 50px 50px;
+    background: linear-gradient(45deg, var(--bg4), var(--bg1)) !important
 }
 
 .Story > section {
