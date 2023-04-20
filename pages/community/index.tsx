@@ -22,7 +22,7 @@ const Community = () => {
     useEffect(() => {
         if(db && user && dbUser && !hasMounted){
             const fetch = async () => {
-                await fetchRecentQuizzes(4)
+                await fetchRecentQuizzes(8)
                 .then(() => setMounted(true))
             }
             fetch()
@@ -42,7 +42,7 @@ const Community = () => {
                     initialValues={{ subject: '' }}
                     onSubmit={ async ({subject}: any) => {
                         if (subject.trim() === ''){
-                            fetchRecentQuizzes(4)
+                            fetchRecentQuizzes(8)
                         }
                         else {
                             queryQuizzesBySubject(subject)
