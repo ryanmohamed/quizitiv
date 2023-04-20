@@ -103,3 +103,10 @@
         margin-top: 10px;
     }
 }
+
+@media screen and (max-width: 500px) {
+    .QuizPage > header h1 {
+        font-size: 40px;
+        line-height: 40px;
+    }
+}
