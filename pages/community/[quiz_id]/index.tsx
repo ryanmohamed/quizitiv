@@ -27,6 +27,8 @@ import axios from 'axios'
 
 import useMeasure from 'react-use-measure'
 
+import { PulseLoader } from "react-spinners"
+
 const QuizPage = () => {
     const router = useRouter()
     const { user } = useFirebaseUserContext()
@@ -196,7 +198,13 @@ const QuizPage = () => {
                     
                     { /* if we have the main level error */ }
                     { typeof props.errors.answers === 'string' && <div className="w-full flex pl-12 "><SpanError className="text-[red] text-[18px] mt-[10px]">{props.errors.answers}</SpanError></div>}
-                    { !submitted && <div className="my-20 flex items-center justify-center"><button className="px-10 border-2 border-green-600 text-2xl text-[var(--txt3)] font-[Bangers] flex items-center justify-center rounded-2xl" type='submit'>Submit Quiz</button></div>}
+                    <div className="my-20 flex items-center justify-center">
+                        { !loading ? <button className="px-10 border-2 border-green-600 text-2xl text-[var(--txt3)] font-[Bangers] flex items-center justify-center rounded-2xl" type='submit'>Submit Quiz</button> : <>
+                        <   PulseLoader color="#16a34a" />
+                        </>}
+                    </div>
+
+                    
 
                     </form>
 

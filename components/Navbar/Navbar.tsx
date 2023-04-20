@@ -10,6 +10,10 @@ import Image from 'next/image'
 
 import light from '../../public/svgs/light.svg'
 import dark from '../../public/svgs/dark.svg'
+import Menu from '@/svgs/Menu'
+import Close from '@/svgs/Close'
+import Light from '@/svgs/Light'
+import Dark from '@/svgs/Dark'
 
 import { useRouter } from 'next/router'
 import useThemeContext from '@/hooks/useThemeContext'
@@ -83,8 +87,8 @@ export default function Navbar ({children} : any) {
                 <Link href="/" className="m-2">
                     <p className='text-2xl'>Quiz-itiv</p>
                 </Link>
-                <span className='flex items-center justify-center h-min bg-gray-100 p-1 m-2 rounded-full delay-200'>
-                    <Image src={darkMode ? light : dark} alt="toggle light mode" height={20} width={20} onClick={() => setDarkMode(!darkMode)} className="cursor-pointer" />
+                <span className='flex items-center justify-center h-min p-1 m-2 delay-200'>
+                { darkMode ? <Light stroke="var(--txt3)" onClick={() => setDarkMode(!darkMode)} className="cursor-pointer"/> : <Dark fill="var(--txt3)" onClick={() => setDarkMode(!darkMode)} className="cursor-pointer" /> }
                 </span>
 
             </div>
@@ -98,8 +102,9 @@ export default function Navbar ({children} : any) {
             { user && <div className={styles.user} >
 
                 <p className={styles.Name}>{ user.isAnonymous ? "Anonymous" : user.displayName == null ? user.email : user.displayName }</p>
-                <Image src={photoURL} alt={"profile image"} height={30} width={30} onClick={() => setToggle(!toggle)}/>
-                
+                <Image src={photoURL} alt={"profile image"} className="rounded-full" height={20} width={20} onClick={() => setToggle(!toggle)}/>
+                { !toggle ? <Menu fill={"var(--txt5)"} style={{cursor: 'pointer'}} onClick={() => setToggle(!toggle)}/> : <Close fill={"var(--txt5)"} style={{cursor: 'pointer'}} onClick={() => setToggle(!toggle)}/> }
+
                 <AnimatePresence>
                 { toggle && 
                     <motion.ul 
@@ -110,6 +115,7 @@ export default function Navbar ({children} : any) {
                     >
                         <Link href="/dashboard"><li>Dashboard</li></Link>
                         <Link href="/community"><li>Community</li></Link>
+                        { dbUser?.xp > 100 && <Link href="/settings"><li>Settings</li></Link>}
                         <li onClick={()=>{
                             SignOut()
                             setToggle(false)
