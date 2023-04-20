@@ -75,6 +75,12 @@ select {
   font-family: 'Space Grotesk', sans-serif;
 }
 
+@media screen and (max-width: 600px) {
+  :root {
+    --nav-height: 100px;
+  }
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
