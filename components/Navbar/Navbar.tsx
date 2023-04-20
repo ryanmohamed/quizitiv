@@ -87,7 +87,7 @@ export default function Navbar ({children} : any) {
                 <Link href="/" className="m-2">
                     <p className='text-2xl'>Quiz-itiv</p>
                 </Link>
-                <span className='flex items-center justify-center h-min p-1 m-2 delay-200'>
+                <span className='flex items-center justify-center h-min p-1 delay-200'>
                 { darkMode ? <Light stroke="var(--txt3)" onClick={() => setDarkMode(!darkMode)} className="cursor-pointer"/> : <Dark fill="var(--txt3)" onClick={() => setDarkMode(!darkMode)} className="cursor-pointer" /> }
                 </span>
 
