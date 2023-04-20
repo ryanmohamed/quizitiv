@@ -102,7 +102,7 @@ export default function Navbar ({children} : any) {
             { user && <div className={styles.user} >
 
                 <p className={styles.Name}>{ user.isAnonymous ? "Anonymous" : user.displayName == null ? user.email : user.displayName }</p>
-                <Image src={photoURL} alt={"profile image"} className="rounded-full" height={20} width={20} onClick={() => setToggle(!toggle)}/>
+                
                 { !toggle ? <Menu fill={"var(--txt5)"} style={{cursor: 'pointer'}} onClick={() => setToggle(!toggle)}/> : <Close fill={"var(--txt5)"} style={{cursor: 'pointer'}} onClick={() => setToggle(!toggle)}/> }
 
                 <AnimatePresence>
@@ -113,7 +113,7 @@ export default function Navbar ({children} : any) {
                         exit={{ opacity: 0, scale: 0 }}
                         className={styles.dropdown}
                     >
-                        <Link href="/dashboard"><li>Dashboard</li></Link>
+                        <Link href="/dashboard"><li className="flex items-center justify-evenly">Dashboard<Image src={photoURL} alt={"profile image"} className="rounded-full" height={20} width={20}/></li></Link>
                         <Link href="/community"><li>Community</li></Link>
                         { dbUser?.xp > 100 && <Link href="/settings"><li>Settings</li></Link>}
                         <li onClick={()=>{
