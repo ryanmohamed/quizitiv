@@ -14,19 +14,13 @@ import { Rating } from '@smastrom/react-rating'
 
 import styles from './QuizPage.module.css'
 
-import { AnimatePresence, motion } from 'framer-motion'
+import { motion } from 'framer-motion'
 import useFirebaseFirestoreContext from '@/hooks/useFirebaseFirestoreContext'
 
 import Image from 'next/image'
 
 import Question from '@/components/Question/Question'
 import SpanError from '@/components/SpanError/SpanError'
-import ResizeablePanel from '@/components/ResizeablePanel/ResizeablePanel'
-
-import axios from 'axios'
-
-import useMeasure from 'react-use-measure'
-
 import { PulseLoader } from "react-spinners"
 
 const QuizPage = () => {
@@ -41,6 +35,7 @@ const QuizPage = () => {
     const [ start, setStart ] = useState<boolean>(false)
     
     const [ score, setScore ] = useState<any>(0)
+    const [ answerKey, setAnswerKey ] = useState<any>([])
     const [ rating, setRating ] = useState<any>(3) // Initial value
     const [ submitted, setSubmitted ] = useState<boolean>(false)
 
@@ -169,12 +164,17 @@ const QuizPage = () => {
                 onSubmit={async (values: any) => {
                     const answers = values.answers
                     const quiz_id = router.query.quiz_id
+                    console.log(answers)
                     setLoading(true)
                     await submitAnswers(answers, quiz_id)
                     .then((values) => {
                         if (values.status === 200) {
-                            const { message, score } = values.data
-                            score && setScore(score) 
+                            // retrieve values from successful POST request
+                            const { message, score, answers } = values.data
+                            console.log(answers)
+                            score && setScore(score)
+                            answers && setAnswerKey(answers) 
+                            setSubmitted(true)
                         }
                         setLoading(false)
                     })
@@ -186,31 +186,37 @@ const QuizPage = () => {
                 {
                     props => <form onSubmit={(e) => {props.handleSubmit(e)}}>
                         
-                    
                     <FieldArray 
                         name="answers"
                         render={ arrayHelpers => (<>
-                            {quiz.questions.map((question: any, index: any) => (<Question question={question} key={index} idx={index} arrayHelpers={arrayHelpers} formProps={props} style={{ borderBottom: index === quiz.questions.length-1 ? 'none' : '1px solid var(--txt4)'}} />))}
+                            {quiz.questions.map((question: any, index: any) => (<Question question={question} trueAnswer={answerKey[index] && answerKey[index]} key={index} idx={index} arrayHelpers={arrayHelpers} formProps={props} style={{ borderBottom: index === quiz.questions.length-1 ? 'none' : '1px solid var(--txt4)'}} />))}
                             {/* <QuestionCarousel questions={quiz.questions} score={score} /> */}
                         </>) }
                     />
 
-                    
                     { /* if we have the main level error */ }
                     { typeof props.errors.answers === 'string' && <div className="w-full flex pl-12 "><SpanError className="text-[red] text-[18px] mt-[10px]">{props.errors.answers}</SpanError></div>}
                     <div className="my-20 flex items-center justify-center">
-                        { !loading ? <button className="px-10 border-2 border-green-600 text-2xl text-[var(--txt3)] font-[Bangers] flex items-center justify-center rounded-2xl" type='submit'>Submit Quiz</button> : <>
+                        { !loading ? !submitted ? <button className="px-10 border-2 border-green-600 text-2xl text-[var(--txt3)] font-[Bangers] flex items-center justify-center rounded-2xl" type='submit'>Submit Quiz</button> : <> 
+                            {/* p to avoid form submission errors */}
+                            <p className="hover:cursor-pointer px-10 border-2 border-green-600 text-2xl text-[var(--txt3)] font-[Bangers] flex items-center justify-center rounded-2xl"
+                                onClick={() => {
+                                    setStart(true)
+                                    setScore(0)
+                                    setAnswerKey([])
+                                    setSubmitted(false)
+                                    props.resetForm()
+                                }}
+                            >Try Again </p>
+                        </> : <>
                         <   PulseLoader color="#16a34a" />
                         </>}
                     </div>
 
-                    
-
                     </form>
-
-                        
-
                 }
+
+                
                
 
             </Formik>

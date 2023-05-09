@@ -7,6 +7,8 @@ import { motion } from 'framer-motion'
 import SpanError from '../SpanError/SpanError'
 import Unlock from '@/svgs/Unlock'
 import Lock from '@/svgs/Lock'
+import Correct from '@/svgs/Correct'
+import Incorrect from '@/svgs/Incorrect'
 
 const Short = (props: any) => {
     const { idx, lock } = props
@@ -57,7 +59,7 @@ const TrueOrFalse = (props: any) => {
  
 const Question = (props: any) => {
     const { question, type, choices } = props.question
-    const { idx, formProps, children } = props
+    const { idx, formProps, trueAnswer, children } = props
     const [toggle, setToggle]= useState(false)
     return (
         <motion.div 
@@ -76,8 +78,11 @@ const Question = (props: any) => {
                 { children }
             </div>
             
-            
-
+            { trueAnswer && <div className="mt-6 w-full h-fit flex items-center">
+                <p className="w-fit text-lg text-slate-700 p-2 mr-4 rounded-md border-[1px] border-slate-700 bg-amber-400">Correct answer: <span className="inline ml-2 border-slate-700 border-[1px] px-[3px] rounded-md bg-white text-center text-slate-700">{trueAnswer}</span></p>
+                {trueAnswer.toLowerCase().trim() == formProps.values?.answers[idx] ? <Correct fill="#16a34a"/> : <Incorrect fill="red" />}
+            </div> 
+            }
         </motion.div>
     )
 }
