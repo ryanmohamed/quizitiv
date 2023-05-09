@@ -17,4 +17,8 @@
 **Back-end [Model/Controller]**
  1. Firebase
  2. Sinatra/Ruby
- 
+--- 
+### Dev Log 🚧
+**05-08-2023 9:08PM**
+  - [ ] Poor user experience when submitting a wrong answer. Not based. (Show correct answer after submission)
+---
