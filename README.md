@@ -1,4 +1,5 @@
-# [Quizitiv](https://quizitiv.netlify.app) - XP based quiz platform.
+# [Quizitiv](https://quizitiv.netlify.app)
+### XP based quiz platform.
 ![Demo Image](https://i.ibb.co/RTSLr40/Screen-Shot-2023-05-08-at-9-13-08-PM.png)
 ---
 Quizitiv is a typical CRUD application built on an MVC architecture. 
