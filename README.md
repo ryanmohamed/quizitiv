@@ -21,12 +21,7 @@
 ### Dev Log 🚧
 **05-08-2023 9:08PM**
   - [x] ~~Poor user experience when submitting a wrong answer.~~Not based.~~(Show correct answer after submission)~~
-  
-**Added answer update and reset button**
-
+  - [x] ~~App retains theme when user logs out.~~
   - [ ] Failing redirect on quiz creation.
   - [ ] Implement some kind of caching system on the server side, harness the power of Next.js.
-  - [x] ~~App retains theme when user logs out.~~
-
-**`useEffect` to update them when user changes**
 ---
