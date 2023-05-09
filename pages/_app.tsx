@@ -11,6 +11,9 @@ import { ThemeProvider } from '@/context/ThemeProvider'
 
 import '@smastrom/react-rating/style.css';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode
 }
@@ -27,6 +30,7 @@ const App = ({Component, pageProps}: AppPropsWithLayout) => {
         <FirebaseFirestoreProvider>
           <ThemeProvider>
             <Navbar />
+            <ToastContainer />
             { Component.getLayout ? getLayout(<Component {...pageProps} />) : <Component {...pageProps} /> }
           </ThemeProvider>
         </FirebaseFirestoreProvider>

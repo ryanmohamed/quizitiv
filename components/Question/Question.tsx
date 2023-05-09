@@ -80,7 +80,7 @@ const Question = (props: any) => {
             
             { trueAnswer && <div className="mt-6 w-full h-fit flex items-center">
                 <p className="w-fit text-lg text-slate-700 p-2 mr-4 rounded-md border-[1px] border-slate-700 bg-amber-400">Correct answer: <span className="inline ml-2 border-slate-700 border-[1px] px-[3px] rounded-md bg-white text-center text-slate-700">{trueAnswer}</span></p>
-                {trueAnswer.toLowerCase().trim() == formProps.values?.answers[idx] ? <Correct fill="#16a34a"/> : <Incorrect fill="red" />}
+                {trueAnswer.toLowerCase().trim() == formProps.values?.answers[idx].toLowerCase().trim() ? <Correct fill="#16a34a"/> : <Incorrect fill="red" />}
             </div> 
             }
         </motion.div>

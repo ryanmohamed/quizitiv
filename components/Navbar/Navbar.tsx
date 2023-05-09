@@ -115,6 +115,7 @@ export default function Navbar ({children} : any) {
                     >
                         <Link href="/dashboard"><li className="flex items-center justify-evenly">Dashboard<Image src={photoURL} alt={"profile image"} className="rounded-full" height={20} width={20}/></li></Link>
                         <Link href="/community"><li>Community</li></Link>
+                        { dbUser?.xp > 290 && <Link href="/gameroom"><li>Game Room</li></Link>}
                         { dbUser?.xp > 100 && <Link href="/settings"><li>Settings</li></Link>}
                         <li onClick={()=>{
                             SignOut()

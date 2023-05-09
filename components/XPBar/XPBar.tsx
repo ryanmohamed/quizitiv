@@ -13,8 +13,13 @@ const levels: any = {
     "Level 8": 675,
     "Level 9": 850,
     "Level 10": 1100,
-    "Level 11": 1400,
+    "Level 11": 1400
 } 
+
+const unlocksAvailableAfter: any = {
+    "Level 2": "Themes",
+    "Level 4": "Game Room"
+}
 
 const getLevel = (xp: number) => {
     let level: string = "Level 1"
@@ -62,6 +67,13 @@ const XPBar = ({xp, ...props}: any) => {
                 </div>
                 { (level && getRange(level)?.max) && <p>{getRange(level)?.max}</p> }
             </div>
+            { unlocksAvailableAfter[level] && <>
+            
+                <div className="w-full flex flex-col items-end justify-center mt-4 text-xl text-right text-[var(--txt4)]">Unlock available at next level!
+                    <span className="w-fit px-2 mt-2 ml-2 rounded-sm border-[1px] border-[#257bdf] text-[var(--txt4)]">{unlocksAvailableAfter[level]}</span>
+                </div>
+                
+            </> }
         </div>
     )
 }
