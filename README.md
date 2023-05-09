@@ -25,3 +25,4 @@
   - [ ] Failing redirect on quiz creation.
   - [ ] Implement some kind of caching system on the server side, harness the power of Next.js.
 ---
+# pet-app-challenge
