@@ -8,7 +8,7 @@
 > Log in with a method of your choosing and have a profile associated with all quizzes taken, and created. 
 > **Gain XP** by taking quizzes in the community and unlock **hidden features** throughout the site. Whether that be games or theme changes. 
 ---
-**Tech Stack**
+### Tech Stack
 **Front-end [View]**
  1. Next13
  2. Typescript React
