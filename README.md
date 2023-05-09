@@ -13,6 +13,7 @@
  1. Next13
  2. Typescript React
  3. Tailwind CSS
+ 
 **Back-end [Model/Controller]**
  1. Firebase
  2. Sinatra/Ruby
