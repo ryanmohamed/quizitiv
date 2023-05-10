@@ -8,7 +8,7 @@ export default function Level3Layout ({children}: any) {
     const { dbUser } = useFirebaseFirestoreContext()
     if ( user === undefined || user === null || dbUser === undefined || dbUser === null )
         return (<NotLoggedIn />)
-    else if ( dbUser?.xp < 290 )
+    else if ( dbUser?.xp < 100 )
         return (<LowLevel />)
     return <main>
         {children}
