@@ -168,35 +168,43 @@ const useFirebaseFirestore = () => {
 
     const queryQuizzesBySubject = async (subject: string) => {
         if (db && user && dbUser) {
-            const querySnapshot = await getDocs(query(collection(db, "Quizzes"), where('subject', '==', subject), limit(5)))
-            let headers: QuizHeader[] = []
-
-            querySnapshot.forEach((doc) => {
-                // doc.data() never undefined for query doc snapshots
-                console.log(doc.id, " => ", doc.data())
-                headers.push({
-                    title: doc.data()?.title,
-                    subject: doc.data()?.subject,
-                    author: doc.data()?.author,
-                    img_url: doc.data()?.img_url,
-                    num_questions: doc.data()?.questions.length,
-                    rating: doc.data()?.rating,
-                    id: doc?.id 
-                })
-            })
-
-            setSubject(subject)
-
-            console.log("headers: ", headers)
-            setQuizHeaders(headers)
-
-            // use the last document as a starting point in pagination
-            const last = querySnapshot.docs[querySnapshot.size - 1]
-            setLastDocSnap(last)
-
-            setQueryType(2)
+          const querySnapshot = await getDocs(
+            query(
+              collection(db, 'Quizzes'),
+              where('subject', '>=', subject),
+              where('subject', '<=', subject + '\uf8ff'),
+              limit(5)
+            )
+          );
+      
+          const headers: QuizHeader[] = [];
+      
+          querySnapshot.forEach((doc) => {
+            // doc.data() never undefined for query doc snapshots
+            console.log(doc.id, ' => ', doc.data());
+            headers.push({
+              title: doc.data()?.title,
+              subject: doc.data()?.subject,
+              author: doc.data()?.author,
+              img_url: doc.data()?.img_url,
+              num_questions: doc.data()?.questions.length,
+              rating: doc.data()?.rating,
+              id: doc?.id,
+            });
+          });
+      
+          setSubject(subject);
+      
+          console.log('headers: ', headers);
+          setQuizHeaders(headers);
+      
+          // use the last document as a starting point in pagination
+          const last = querySnapshot.docs[querySnapshot.size - 1];
+          setLastDocSnap(last);
+      
+          setQueryType(2);
         }
-    }
+      };
 
     /* utilize sinatra middleware */
     const submitAnswers = async (answers: any, quiz_id: any) => {
